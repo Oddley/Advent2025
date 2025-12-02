@@ -16,4 +16,14 @@ public class IDRange {
     {
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        IDRange other = (IDRange) obj;
+        return other.Start == this.Start && other.End == this.End;
+    }
 }
