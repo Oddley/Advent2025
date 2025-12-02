@@ -5,21 +5,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class IDRange {
-    public final int Start;
-    public final int End;
+    public final long Start;
+    public final long End;
 
-    public IDRange(int start, int end)
+    public IDRange(long start, long end)
     {
         this.Start = start;
         this.End = end;
     }
 
-    private List<Integer> asList;
-    public List<Integer> AsList()
+    private List<Long> asList;
+    public List<Long> AsList()
     {
         if (asList == null) {
-            var mutableList = new ArrayList<Integer>();
-            for (int i = this.Start; i <= this.End; i++) {
+            var mutableList = new ArrayList<Long>();
+            for (var i = this.Start; i <= this.End; i++) {
                 mutableList.add(i);
             }
             asList = Collections.unmodifiableList(mutableList);

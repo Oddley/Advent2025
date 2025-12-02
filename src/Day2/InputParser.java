@@ -12,8 +12,8 @@ public class InputParser {
         for (var rangeString : rangeStrings)
         {
             var splitAt = rangeString.indexOf('-');
-            var start = Integer.parseUnsignedInt(rangeString, 0, splitAt, 10);
-            var end = Integer.parseUnsignedInt(rangeString, splitAt + 1, rangeString.length(), 10);
+            var start = Long.parseUnsignedLong(rangeString, 0, splitAt, 10);
+            var end = Long.parseUnsignedLong(rangeString, splitAt + 1, rangeString.length(), 10);
             ranges.add(new IDRange(start, end));
         }
         return Collections.unmodifiableList(ranges);

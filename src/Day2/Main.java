@@ -1,17 +1,15 @@
 import Common.InputReader;
-import Day1.Dial;
-import Day1.InputParser;
-import Day1.Executor;
+import Day2.Part1IDValidator;
+import Day2.InputParser;
+import Day2.Part2IDValidator;
 import org.jetbrains.annotations.NotNull;
 
 void main() throws IOException {
     var lines = InputReader.ReadAllLines("Day2/input.txt");
-    var rotations = InputParser.ParseLines(lines);
-    var dial = new Dial();
-    var value = 50;
+    var ranges = InputParser.ParseLine(lines.getFirst());
 
-    PrintLine("Part 1 Answer: {0}", Executor.GetLandCount(dial, value, rotations));
-    PrintLine("Part 2 Answer: {0}", Executor.GetTouchCount(dial, value, rotations));
+    PrintLine("Part 1 Answer: {0}", Part1IDValidator.Summer.SumInvalid(ranges));
+    PrintLine("Part 2 Answer: {0}", Part2IDValidator.Summer.SumInvalid(ranges));
 }
 
 void PrintLine(@NotNull String format, Object... args)

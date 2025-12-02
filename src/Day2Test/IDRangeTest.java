@@ -12,7 +12,7 @@ class IDRangeTest {
     void shortList()
     {
         var subject = new IDRange(0,5).AsList();
-        assertEquals(Arrays.asList(0,1,2,3,4,5), subject);
+        assertEquals(Arrays.asList(0L,1L,2L,3L,4L,5L), subject);
     }
 
     @Test
