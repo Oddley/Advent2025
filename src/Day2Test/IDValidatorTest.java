@@ -1,5 +1,6 @@
 package Day2Test;
 
+import Day2.IDRange;
 import Day2.IDValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -40,8 +41,18 @@ class IDValidatorTest {
         );
     }
 
+    @Test
     void sumSample()
     {
         assertEquals(1227775554, IDValidator.SumInvalid(Sample.Get()));
+    }
+
+    @Test
+    void sumSubsamples()
+    {
+        assertAll(
+                ()->assertEquals(33,IDValidator.SumInvalid(new IDRange(11,22))),
+                ()->assertEquals(99,IDValidator.SumInvalid(new IDRange(95,115)))
+        );
     }
 }

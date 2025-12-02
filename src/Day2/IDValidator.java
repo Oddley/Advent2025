@@ -28,7 +28,7 @@ public class IDValidator {
         {
             if (!IsValid(id))
             {
-                //sum += id;
+                sum += id;
             }
         }
         return sum;
@@ -36,6 +36,11 @@ public class IDValidator {
 
     public static long SumInvalid(@NotNull List<IDRange> ranges)
     {
-        return 0;
+        long sum = 0;
+        for (var range : ranges)
+        {
+            sum += SumInvalid(range);
+        }
+        return sum;
     }
 }
