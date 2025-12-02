@@ -4,9 +4,8 @@ import Day1.InputParser;
 import Day1.Executor;
 import org.jetbrains.annotations.NotNull;
 
-// https://adventofcode.com/2025/day/1
 void main() throws IOException {
-    var lines = InputReader.ReadAllLines("Day1/input.txt");
+    var lines = InputReader.ReadAllLines("Day2/input.txt");
     var rotations = InputParser.ParseLines(lines);
     var dial = new Dial();
     var value = 50;
