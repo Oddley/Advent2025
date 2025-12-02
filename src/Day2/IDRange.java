@@ -1,5 +1,7 @@
 package Day2;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class IDRange {
@@ -12,9 +14,17 @@ public class IDRange {
         this.End = end;
     }
 
+    private List<Integer> asList;
     public List<Integer> AsList()
     {
-        return null;
+        if (asList == null) {
+            var mutableList = new ArrayList<Integer>();
+            for (int i = this.Start; i <= this.End; i++) {
+                mutableList.add(i);
+            }
+            asList = Collections.unmodifiableList(mutableList);
+        }
+        return asList;
     }
 
     @Override
