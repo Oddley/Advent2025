@@ -1,9 +1,10 @@
 package Day3;
 
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 public class JoltageCalculator {
-    public static int LargestJoltage(String input)
+    public static int TwoPinJoltage(String input)
     {
         /*
         Slide a window of 2 digits left to right
@@ -34,8 +35,13 @@ public class JoltageCalculator {
         return Integer.parseInt(new String(new char[] {bestLeft, bestRight}));
     }
 
-    public static int LargestTotalJoltage(List<Bank> banks)
+    public static int TwoPinJoltage(List<String> banks)
     {
-        return banks.stream().mapToInt((b)->(LargestJoltage(b.input))).sum();
+        return SumJoltage(banks, JoltageCalculator::TwoPinJoltage);
+    }
+
+    public static int SumJoltage(List<String> banks, ToIntFunction<String> mapper)
+    {
+        return banks.stream().mapToInt(mapper).sum();
     }
 }
