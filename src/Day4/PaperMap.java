@@ -14,7 +14,7 @@ public class PaperMap {
         Width = rows[0].length;
     }
 
-    public long GetAccesibleCount()
+    public int GetAccessibleCount()
     {
         int sum = 0;
         for (int x = 0; x < Width; x++)

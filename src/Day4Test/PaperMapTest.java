@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PaperMapTest
 {
     @Test
-    void getAccesibleCount() {
-        assertEquals(13, Sample.Map.GetAccesibleCount());
+    void getAccessibleCount() {
+        assertEquals(13, Sample.Map.GetAccessibleCount());
     }
 
     @Test
