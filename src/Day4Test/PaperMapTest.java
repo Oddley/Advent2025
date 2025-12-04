@@ -13,6 +13,38 @@ class PaperMapTest
     }
 
     @Test
+    void isPaper() {
+        assertAll(
+                () -> assertTrue(Sample.Map.IsPaper(2,0)),
+                () -> assertTrue(Sample.Map.IsPaper(0,1)),
+                () -> assertTrue(Sample.Map.IsPaper(4,7))
+        );
+    }
+
+    @Test
+    void isNotPaperInBounds()
+    {
+        assertAll(
+                () -> assertFalse(Sample.Map.IsPaper(0,0)),
+                () -> assertFalse(Sample.Map.IsPaper(3,1)),
+                () -> assertFalse(Sample.Map.IsPaper(9,9))
+        );
+    }
+
+    @Test
+    void isNotPaperOutOfBounds()
+    {
+        assertAll(
+                () -> assertFalse(Sample.Map.IsPaper(-1,-1)),
+                () -> assertFalse(Sample.Map.IsPaper(0,-1)),
+                () -> assertFalse(Sample.Map.IsPaper(-1,0)),
+                () -> assertFalse(Sample.Map.IsPaper(9,10)),
+                () -> assertFalse(Sample.Map.IsPaper(10,9)),
+                () -> assertFalse(Sample.Map.IsPaper(10,10))
+        );
+    }
+
+    @Test
     void TestAccessible() {
         assertAll(
                 () -> assertTrue(Sample.Map.IsAccessible(2,0)),

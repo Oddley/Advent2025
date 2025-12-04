@@ -30,6 +30,17 @@ public class PaperMap {
     public int GetNeighborCount(int x, int y)
     {
         return -1;
-        //TODO implement
+        // TODO implement
+    }
+
+    public boolean IsPaper(int x, int y)
+    {
+        return false;
+        // TODO implement
+        /*
+        return x > 0 && x < Width &&
+        y > 0 && y < Height &&
+        grid[x][y];
+         */
     }
 }
