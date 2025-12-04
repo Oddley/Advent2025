@@ -1,6 +1,7 @@
 package Day4Test;
 
 import Day4.PaperMap;
+import Day4.PaperMapParser;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,5 +21,5 @@ class Sample {
             ".@@@@@@@@.",
             "@.@.@@@.@.");
 
-    public static final PaperMap Map = new PaperMap(Input);
+    public static final PaperMap Map = PaperMapParser.Parse(Input);
 }

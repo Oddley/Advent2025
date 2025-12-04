@@ -7,12 +7,11 @@ public class PaperMap {
     public final int Width;
     public final int Height;
 
-    public PaperMap(List<String> rows)
+    public PaperMap(boolean[][] rows)
     {
-        grid = new boolean[0][0];
-        Width = -1;
-        Height = -1;
-        // TODO implement
+        grid = rows;
+        Height = rows.length;
+        Width = rows[0].length;
     }
 
     public long GetAccesibleCount()
@@ -33,14 +32,15 @@ public class PaperMap {
         // TODO implement
     }
 
+    private boolean at(int x, int y)
+    {
+        return grid[y][x];
+    }
+
     public boolean IsPaper(int x, int y)
     {
-        return false;
-        // TODO implement
-        /*
-        return x > 0 && x < Width &&
-        y > 0 && y < Height &&
-        grid[x][y];
-         */
+        return x >= 0 && x < Width &&
+            y >= 0 && y < Height &&
+            at(x,y);
     }
 }
