@@ -31,4 +31,29 @@ class PaperMapTest
                 () -> assertTrue(Sample.Map.IsAccessible(8,9))
         );
     }
+
+    @Test
+    void TestInaccessible() {
+        assertAll(
+                () -> assertFalse(Sample.Map.IsAccessible(0,0)),
+                () -> assertFalse(Sample.Map.IsAccessible(1,1)),
+                () -> assertFalse(Sample.Map.IsAccessible(1,9)),
+                () -> assertFalse(Sample.Map.IsAccessible(4,3)),
+                () -> assertFalse(Sample.Map.IsAccessible(6,9))
+        );
+    }
+
+    @Test
+    void TestNeighborCount() {
+        assertAll(
+                () -> assertEquals(1, Sample.Map.IsAccessible(0,0)),
+                () -> assertEquals(3, Sample.Map.IsAccessible(1,0)),
+                () -> assertEquals(4, Sample.Map.IsAccessible(7,0)),
+                () -> assertEquals(3, Sample.Map.IsAccessible(0,1)),
+                () -> assertEquals(5, Sample.Map.IsAccessible(2,1)),
+                () -> assertEquals(4, Sample.Map.IsAccessible(9,2)),
+                () -> assertEquals(8, Sample.Map.IsAccessible(4,4)),
+                () -> assertEquals(5, Sample.Map.IsAccessible(5,9))
+        );
+    }
 }

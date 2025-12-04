@@ -26,4 +26,10 @@ public class PaperMap {
         return false;
         // TODO implement
     }
+
+    public int GetNeighborCount(int x, int y)
+    {
+        return -1;
+        //TODO implement
+    }
 }
