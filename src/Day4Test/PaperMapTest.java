@@ -78,14 +78,14 @@ class PaperMapTest
     @Test
     void TestNeighborCount() {
         assertAll(
-                () -> assertEquals(1, Sample.Map.IsAccessible(0,0)),
-                () -> assertEquals(3, Sample.Map.IsAccessible(1,0)),
-                () -> assertEquals(4, Sample.Map.IsAccessible(7,0)),
-                () -> assertEquals(3, Sample.Map.IsAccessible(0,1)),
-                () -> assertEquals(5, Sample.Map.IsAccessible(2,1)),
-                () -> assertEquals(4, Sample.Map.IsAccessible(9,2)),
-                () -> assertEquals(8, Sample.Map.IsAccessible(4,4)),
-                () -> assertEquals(5, Sample.Map.IsAccessible(5,9))
+                () -> assertEquals(2, Sample.Map.GetNeighborCount(0,0)),
+                () -> assertEquals(4, Sample.Map.GetNeighborCount(1,0)),
+                () -> assertEquals(4, Sample.Map.GetNeighborCount(7,0)),
+                () -> assertEquals(3, Sample.Map.GetNeighborCount(0,1)),
+                () -> assertEquals(6, Sample.Map.GetNeighborCount(2,1)),
+                () -> assertEquals(4, Sample.Map.GetNeighborCount(9,2)),
+                () -> assertEquals(8, Sample.Map.GetNeighborCount(4,4)),
+                () -> assertEquals(5, Sample.Map.GetNeighborCount(5,9))
         );
     }
 }

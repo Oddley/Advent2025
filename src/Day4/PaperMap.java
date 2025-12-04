@@ -28,8 +28,19 @@ public class PaperMap {
 
     public int GetNeighborCount(int x, int y)
     {
-        return -1;
-        // TODO implement
+        var count = 0;
+        for (var xOffset = -1; xOffset <= 1; xOffset++)
+        {
+            for (var yOffset = -1; yOffset <= 1; yOffset++)
+            {
+                if ((xOffset != 0 || yOffset != 0) &&
+                    IsPaper(x + xOffset, y + yOffset))
+                {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     private boolean at(int x, int y)
