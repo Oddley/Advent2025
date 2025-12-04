@@ -1,7 +1,5 @@
 package Day4;
 
-import java.util.List;
-
 public class PaperMap {
     final boolean[][] grid;
     public final int Width;
@@ -52,7 +50,7 @@ public class PaperMap {
         return count;
     }
 
-    private boolean at(int x, int y)
+    public boolean Get(int x, int y)
     {
         return grid[y][x];
     }
@@ -61,6 +59,6 @@ public class PaperMap {
     {
         return x >= 0 && x < Width &&
             y >= 0 && y < Height &&
-            at(x,y);
+            Get(x,y);
     }
 }
