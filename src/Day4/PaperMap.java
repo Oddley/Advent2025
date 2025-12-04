@@ -16,14 +16,23 @@ public class PaperMap {
 
     public long GetAccesibleCount()
     {
-        return -1;
-        // TODO implement
+        int sum = 0;
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                if (IsAccessible(x,y))
+                {
+                    sum++;
+                }
+            }
+        }
+        return sum;
     }
 
     public boolean IsAccessible(int x, int y)
     {
-        return false;
-        // TODO implement
+        return IsPaper(x,y) && GetNeighborCount(x,y) < 4;
     }
 
     public int GetNeighborCount(int x, int y)
