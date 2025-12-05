@@ -2,11 +2,14 @@ import Common.InputReader;
 import org.jetbrains.annotations.NotNull;
 
 void main() throws IOException {
-    var lines = InputReader.ReadAllLines("Day4/input.txt");
-    var map = Day4.PaperMapParser.Parse(lines);
+    var lines = InputReader.ReadAllLines("Day5/input.txt");
+    var inventory = Day5.Parser.ParseInventory(lines);
 
-    PrintLine("Part 1 Answer: {0,number,#}", map.GetAccessibleCount());
-    PrintLine("Part 2 Answer: {0,number,#}", Day4.Forklift.RemoveAllAccessible(map));
+    PrintLine("Part 1 Answer: {0,number,#}", inventory.FreshCount());
+
+    var reducedInventory = Day5.RangeCombiner.CombineAll(inventory.Ranges);
+    var inventorySize = reducedInventory.stream().mapToLong(Day2.IDRange::Size).sum();
+    PrintLine("Part 2 Answer: {0,number,#}", inventorySize);
 }
 
 void PrintLine(@NotNull String format, Object... args)

@@ -27,6 +27,16 @@ public class IDRange {
         return asList;
     }
 
+    public boolean Includes(long id)
+    {
+        return this.Start <= id && id <= this.End;
+    }
+
+    public long Size()
+    {
+        return (this.End - this.Start) + 1;
+    }
+
     @Override
     public boolean equals(Object obj)
     {
