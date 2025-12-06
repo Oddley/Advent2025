@@ -1,15 +1,14 @@
 import Common.InputReader;
+import Day6.Homework;
 import org.jetbrains.annotations.NotNull;
 
 void main() throws IOException {
-    var lines = InputReader.ReadAllLines("Day5/input.txt");
-    var inventory = Day5.Parser.ParseInventory(lines);
+    var lines = InputReader.ReadAllLines("Day6/input.txt");
+    var columns = Day6.Parser.ParseLines(lines);
+    var answers = columns.stream().mapToLong(Homework::GetResult);
+    var sum = answers.sum();
 
-    PrintLine("Part 1 Answer: {0,number,#}", inventory.FreshCount());
-
-    var reducedInventory = Day5.RangeCombiner.CombineAll(inventory.Ranges);
-    var inventorySize = reducedInventory.stream().mapToLong(Day2.IDRange::Size).sum();
-    PrintLine("Part 2 Answer: {0,number,#}", inventorySize);
+    PrintLine("Part 1 Answer: {0,number,#}", sum);
 }
 
 void PrintLine(@NotNull String format, Object... args)
