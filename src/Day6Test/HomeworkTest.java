@@ -8,8 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class HomeworkTest {
 
     @Test
-    void getResult() {
-        var answers = Sample.Columns.stream().mapToLong(Homework::GetResult).boxed().toList();
-        assertIterableEquals  (Sample.Answers, answers);
+    void testPart1() {
+        var answers = Sample.Part1Columns.stream().mapToLong(Homework::GetResult).boxed().toList();
+        assertIterableEquals  (Sample.Part1Answers, answers);
+    }
+
+    @Test
+    void testPart2() {
+        var answers = Sample.Part2Columns.stream().mapToLong(Homework::GetResult).boxed().toList();
+        assertIterableEquals  (Sample.Part2Answers, answers);
     }
 }
