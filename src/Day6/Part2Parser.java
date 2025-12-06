@@ -16,7 +16,6 @@ public class Part2Parser
     {
         // Initialize values
         final var width = lines.getFirst().length();
-
         var result = new ArrayList<Column>();
         var values = new ArrayList<Long>();
 
