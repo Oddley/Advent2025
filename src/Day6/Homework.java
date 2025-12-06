@@ -5,6 +5,9 @@ import java.util.function.BiFunction;
 
 public class Homework
 {
+    public static final BiFunction<Long, Long, Long> AddFunc = Math::addExact;
+    public static final BiFunction<Long, Long, Long> MultiplyFunc = Math::multiplyExact;
+
     public static Long GetResult(Column column)
     {
         return GetResult(column.Values, column.Operator);

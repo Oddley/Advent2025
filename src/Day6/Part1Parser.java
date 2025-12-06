@@ -6,12 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class Parser
+public class Part1Parser
 {
-    public static final String AddString = "+";
-    public static final String MultiplyString = "*";
-    public static final BiFunction<Long, Long, Long> AddFunc = Math::addExact;
-    public static final BiFunction<Long, Long, Long> MultiplyFunc = Math::multiplyExact;
+    public static final char AddChar = '+';
+    public static final char MultiplyChar = '*';
 
     public static List<Column> ParseLines(List<String> lines)
     {
@@ -27,17 +25,9 @@ public class Parser
             }
             else
             {
-                for (var operator : line.split("\\s"))
+                for (var operator : line.split("\\s+"))
                 {
-                    switch (operator)
-                    {
-                        case AddString:
-                            operatorRow.add(AddFunc);
-                            break;
-                        case MultiplyString:
-                            operatorRow.add(MultiplyFunc);
-                            break;
-                    }
+                    operatorRow.add(ParseOperator(operator.charAt(0)));
                 }
             }
         }
@@ -58,5 +48,14 @@ public class Parser
     {
         var valueStrings = line.split("\\s+");
         return Arrays.stream(valueStrings).mapToLong(Long::parseLong).toArray();
+    }
+
+    public static BiFunction<Long, Long, Long> ParseOperator(char c)
+    {
+        return switch (c) {
+            case AddChar -> Homework.AddFunc;
+            case MultiplyChar -> Homework.MultiplyFunc;
+            default -> null;
+        };
     }
 }

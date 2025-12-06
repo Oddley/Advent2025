@@ -1,7 +1,7 @@
 package Day6Test;
 
 import Day6.Column;
-import Day6.Parser;
+import Day6.Homework;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ public class Sample {
             "*   +   *   +");
 
     public static List<Column> Columns = List.of(
-            new Column(List.of(123L, 45L, 6L), Parser.MultiplyFunc),
-            new Column(List.of(328L, 64L, 98L), Parser.AddFunc),
-            new Column(List.of(51L, 387L, 215L), Parser.MultiplyFunc),
-            new Column(List.of(64L, 23L, 314L), Parser.AddFunc)
+            new Column(List.of(123L, 45L, 6L), Homework.MultiplyFunc),
+            new Column(List.of(328L, 64L, 98L), Homework.AddFunc),
+            new Column(List.of(51L, 387L, 215L), Homework.MultiplyFunc),
+            new Column(List.of(64L, 23L, 314L), Homework.AddFunc)
     );
 
     public static List<Long> Answers = List.of(

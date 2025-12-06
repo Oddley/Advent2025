@@ -1,10 +1,11 @@
 import Common.InputReader;
 import Day6.Homework;
+import Day6.Part1Parser;
 import org.jetbrains.annotations.NotNull;
 
 void main() throws IOException {
     var lines = InputReader.ReadAllLines("Day6/input.txt");
-    var columns = Day6.Parser.ParseLines(lines);
+    var columns = Part1Parser.ParseLines(lines);
     var answers = columns.stream().mapToLong(Homework::GetResult);
     var sum = answers.sum();
 
