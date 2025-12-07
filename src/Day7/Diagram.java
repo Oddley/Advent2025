@@ -3,25 +3,25 @@ package Day7;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Diagram {
-    private final List<Integer> heads;
+    public final List<Integer> Heads;
     private final List<List<Cell>> grid;
     public final int Step;
-
     public final int Height;
     public final int Width;
+    public final int Splits;
 
-    Diagram(List<List<Cell>> grid, int step, List<Integer> heads)
+    Diagram(List<List<Cell>> grid, int step, List<Integer> heads, int splits)
     {
         this.grid = grid;
         this.Height = grid.size();
         this.Width = grid.getFirst().size();
         this.Step = step;
-        this.heads = heads;
+        this.Heads = heads;
+        this.Splits = splits;
     }
 
     public boolean HasNext()
@@ -39,9 +39,10 @@ public class Diagram {
         var previousState = grid.get(step);
         var nextState = new ArrayList<>(previousState);
         var newHeads = new ArrayList<Integer>();
+        var newSplits = 0;
 
         // Advance Beams
-        for (int index : heads)
+        for (int index : Heads)
         {
             var cell = nextState.get(index);
             if (cell == Cell.Empty)
@@ -51,6 +52,7 @@ public class Diagram {
             }
             else if (cell == Cell.Splitter)
             {
+                newSplits++;
                 // Left
                 if (index > 0 && nextState.get(index - 1) == Cell.Empty)
                 {
@@ -80,7 +82,8 @@ public class Diagram {
             }
         }
 
-        return new Diagram(newGrid, step, Collections.unmodifiableList(newHeads));
+        var splitCount = this.Splits + newSplits;
+        return new Diagram(newGrid, step, Collections.unmodifiableList(newHeads), splitCount);
     }
 
     public static Diagram GetStartingGrid(@NotNull Cell[][] grid)
@@ -105,10 +108,20 @@ public class Diagram {
             gridList.add(List.of(row));
         }
 
-        return new Diagram(Collections.unmodifiableList(gridList), 0, List.of(startIndex));
+        return new Diagram(Collections.unmodifiableList(gridList), 0, List.of(startIndex), 0);
     }
 
-    public static int ValidateStartingRow(@NotNull Cell[] row)
+    public Diagram GetFinalState()
+    {
+        var state = this;
+        while (state.HasNext())
+        {
+            state = state.GetNext();
+        }
+        return state;
+    }
+
+    public static int ValidateStartingRow(Cell[] row)
     {
         if (row.length == 0)
         {
@@ -131,7 +144,7 @@ public class Diagram {
         return startIndex;
     }
 
-    public static void ValidateNonStartRow(@NotNull Cell[] row, int expectedWidth, int index)
+    public static void ValidateNonStartRow(Cell[] row, int expectedWidth, int index)
     {
         if (row.length != expectedWidth)
         {

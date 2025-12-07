@@ -5,6 +5,8 @@ import Day7.Diagram;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DiagramValidationTest {
@@ -12,24 +14,6 @@ class DiagramValidationTest {
     static final Cell[][] JustS = new Cell[][] { new Cell[] { Cell.Start }};
     static final Cell[] ESE = new Cell[]{ Cell.Empty, Cell.Start, Cell.Empty };
     static final Cell[] EEE = new Cell[]{ Cell.Empty, Cell.Empty, Cell.Empty };
-    static final Cell[] EBE = new Cell[]{ Cell.Empty, Cell.Beam, Cell.Empty };
-
-    @Test
-    void hasNextFalse() {
-        var subject = Diagram.GetStartingGrid(new Cell[][]{ ESE });
-        assertFalse(subject.HasNext());
-    }
-    @Test
-    void hasNextTrue() {
-        var subject = Diagram.GetStartingGrid(new Cell[][]{ ESE, EEE });
-        assertTrue(subject.HasNext());
-    }
-
-    @Test
-    void getNext() {
-        var subject = Diagram.GetStartingGrid(new Cell[][]{ ESE, EEE }).GetNext();
-        assertEquals(1, subject.Step);
-    }
 
     @Test
     void getStartingGridOneLine() {
@@ -38,9 +22,11 @@ class DiagramValidationTest {
         assertAll(
                 ()->assertEquals(1, subject.Height),
                 ()->assertEquals(3, subject.Width),
-                ()->assertEquals(0, subject.Step)
+                ()->assertEquals(0, subject.Step),
+                ()->assertTrue(subject.IsMatch(input)),
+                ()->assertEquals(List.of(1), subject.Heads),
+                ()->assertEquals(0, subject.Splits)
         );
-        assertTrue(subject.IsMatch(input));
     }
 
     @Test
