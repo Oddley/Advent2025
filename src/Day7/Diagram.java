@@ -7,83 +7,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class Diagram {
-    public final List<Integer> Heads;
     private final List<List<Cell>> grid;
-    public final int Step;
     public final int Height;
     public final int Width;
-    public final int Splits;
+    public final int StartX;
 
-    Diagram(List<List<Cell>> grid, int step, List<Integer> heads, int splits)
+    Diagram(List<List<Cell>> grid, int startX)
     {
         this.grid = grid;
         this.Height = grid.size();
         this.Width = grid.getFirst().size();
-        this.Step = step;
-        this.Heads = heads;
-        this.Splits = splits;
-    }
-
-    public boolean HasNext()
-    {
-        return Step + 1 < Height;
-    }
-
-    public Diagram GetNext()
-    {
-        if (!HasNext())
-        {
-            throw new IllegalStateException("Done!");
-        }
-        var step = this.Step + 1;
-        var previousState = grid.get(step);
-        var nextState = new ArrayList<>(previousState);
-        var newHeads = new ArrayList<Integer>();
-        var newSplits = 0;
-
-        // Advance Beams
-        for (int index : Heads)
-        {
-            var cell = nextState.get(index);
-            if (cell == Cell.Empty)
-            {
-                nextState.set(index, Cell.Beam);
-                newHeads.add(index);
-            }
-            else if (cell == Cell.Splitter)
-            {
-                newSplits++;
-                // Left
-                if (index > 0 && nextState.get(index - 1) == Cell.Empty)
-                {
-                    nextState.set(index - 1, Cell.Beam);
-                    newHeads.add(index - 1);
-                }
-
-                // Right
-                if (index + 1 < Width && nextState.get(index + 1) == Cell.Empty)
-                {
-                    nextState.set(index + 1, Cell.Beam);
-                    newHeads.add(index + 1);
-                }
-            }
-        }
-
-        // Copy Grid
-        var newGrid = new ArrayList<List<Cell>>();
-        for (int i = 0; i < Height; i++)
-        {
-            if (i == step) {
-                newGrid.add(nextState);
-            }
-            else
-            {
-                newGrid.add(grid.get(i));
-            }
-        }
-
-        var splitCount = this.Splits + newSplits;
-        return new Diagram(newGrid, step, Collections.unmodifiableList(newHeads), splitCount);
+        this.StartX = startX;
     }
 
     public static Diagram GetStartingGrid(@NotNull Cell[][] grid)
@@ -108,20 +42,10 @@ public class Diagram {
             gridList.add(List.of(row));
         }
 
-        return new Diagram(Collections.unmodifiableList(gridList), 0, List.of(startIndex), 0);
+        return new Diagram(Collections.unmodifiableList(gridList), startIndex);
     }
 
-    public Diagram GetFinalState()
-    {
-        var state = this;
-        while (state.HasNext())
-        {
-            state = state.GetNext();
-        }
-        return state;
-    }
-
-    public static int ValidateStartingRow(Cell[] row)
+    public static int ValidateStartingRow(@NotNull Cell[] row)
     {
         if (row.length == 0)
         {
@@ -144,7 +68,7 @@ public class Diagram {
         return startIndex;
     }
 
-    public static void ValidateNonStartRow(Cell[] row, int expectedWidth, int index)
+    public static void ValidateNonStartRow(@NotNull Cell[] row, int expectedWidth, int index)
     {
         if (row.length != expectedWidth)
         {
@@ -162,7 +86,7 @@ public class Diagram {
         }
     }
 
-    public boolean IsMatch(Cell[][] other)
+    public boolean IsMatch(@NotNull Cell[][] other)
     {
         if (other == null || other.length != Height)
         {
@@ -189,5 +113,33 @@ public class Diagram {
             }
         }
         return true;
+    }
+
+    public List<Cell> GetRow(int i)
+    {
+        return grid.get(i);
+    }
+
+    public Diagram WithRow(int rowIndex, List<Cell> newRow)
+    {
+        if (newRow.size() != Width)
+        {
+            throw new IllegalArgumentException("NewRow.size="+newRow.size()+", expecting "+Width);
+        }
+
+        // Copy Grid
+        var newGrid = new ArrayList<List<Cell>>();
+        for (int i = 0; i < Height; i++)
+        {
+            if (i == rowIndex) {
+                newGrid.add(Collections.unmodifiableList(newRow));
+            }
+            else
+            {
+                newGrid.add(grid.get(i));
+            }
+        }
+
+        return new Diagram(newGrid, StartX);
     }
 }

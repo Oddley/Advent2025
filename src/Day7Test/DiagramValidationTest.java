@@ -5,8 +5,6 @@ import Day7.Diagram;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class DiagramValidationTest {
@@ -22,18 +20,8 @@ class DiagramValidationTest {
         assertAll(
                 ()->assertEquals(1, subject.Height),
                 ()->assertEquals(3, subject.Width),
-                ()->assertEquals(0, subject.Step),
-                ()->assertTrue(subject.IsMatch(input)),
-                ()->assertEquals(List.of(1), subject.Heads),
-                ()->assertEquals(0, subject.Splits)
+                ()->assertTrue(subject.IsMatch(input))
         );
-    }
-
-    @Test
-    void isMatchFalseNull()
-    {
-        var subject = Diagram.GetStartingGrid(JustS);
-        subject.IsMatch(null);
     }
 
     @Test
@@ -86,12 +74,6 @@ class DiagramValidationTest {
     }
 
     @Test
-    void validateStartingRowFailNull()
-    {
-        assertThrows(IllegalArgumentException.class, ()->Diagram.ValidateStartingRow(null));
-    }
-
-    @Test
     void validateStartingRowFailEmpty()
     {
         assertThrows(IllegalArgumentException.class, ()->Diagram.ValidateStartingRow(new Cell[0]));
@@ -109,12 +91,6 @@ class DiagramValidationTest {
     {
         var subject = new Cell[]{ Cell.Start, Cell.Splitter };
         assertThrows(IllegalArgumentException.class, ()->Diagram.ValidateStartingRow(subject));
-    }
-
-    @Test
-    void validateNonStartRowFailNull()
-    {
-        assertThrows(IllegalArgumentException.class, ()->Diagram.ValidateNonStartRow(null, 0, 1));
     }
 
     @Test
