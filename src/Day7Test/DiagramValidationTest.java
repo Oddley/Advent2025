@@ -7,18 +7,68 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DiagramTest {
+class DiagramValidationTest {
+    static final Cell[][] Empty = new Cell[][] { new Cell[] {} };
+    static final Cell[][] JustS = new Cell[][] { new Cell[] { Cell.Start }};
+    static final Cell[] ESE = new Cell[]{ Cell.Empty, Cell.Start, Cell.Empty };
+    static final Cell[] EEE = new Cell[]{ Cell.Empty, Cell.Empty, Cell.Empty };
+    static final Cell[] EBE = new Cell[]{ Cell.Empty, Cell.Beam, Cell.Empty };
 
     @Test
-    void hasNext() {
+    void hasNextFalse() {
+        var subject = Diagram.GetStartingGrid(new Cell[][]{ ESE });
+        assertFalse(subject.HasNext());
+    }
+    @Test
+    void hasNextTrue() {
+        var subject = Diagram.GetStartingGrid(new Cell[][]{ ESE, EEE });
+        assertTrue(subject.HasNext());
     }
 
     @Test
     void getNext() {
+        var subject = Diagram.GetStartingGrid(new Cell[][]{ ESE, EEE }).GetNext();
+        assertEquals(1, subject.Step);
     }
 
     @Test
-    void getStartingGrid() {
+    void getStartingGridOneLine() {
+        var input = new Cell[][]{ ESE };
+        var subject = Diagram.GetStartingGrid(input);
+        assertAll(
+                ()->assertEquals(1, subject.Height),
+                ()->assertEquals(3, subject.Width),
+                ()->assertEquals(0, subject.Step)
+        );
+        assertTrue(subject.IsMatch(input));
+    }
+
+    @Test
+    void isMatchFalseNull()
+    {
+        var subject = Diagram.GetStartingGrid(JustS);
+        subject.IsMatch(null);
+    }
+
+    @Test
+    void isMatchFalseOnWidth()
+    {
+        var subject = Diagram.GetStartingGrid(JustS);
+        assertFalse(subject.IsMatch(Empty));
+    }
+
+    @Test
+    void isMatchFalseOnHeight()
+    {
+        var subject = Diagram.GetStartingGrid(JustS);
+        assertFalse(subject.IsMatch(new Cell[][] { ESE, EEE }));
+    }
+
+    @Test
+    void isMatchTrue()
+    {
+        var subject = Diagram.GetStartingGrid(JustS);
+        assertTrue(subject.IsMatch(JustS));
     }
 
     @Test

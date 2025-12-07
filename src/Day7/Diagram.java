@@ -148,4 +148,33 @@ public class Diagram {
             }
         }
     }
+
+    public boolean IsMatch(Cell[][] other)
+    {
+        if (other == null || other.length != Height)
+        {
+            return false;
+        }
+        else
+        {
+            var rowIterator = grid.iterator();
+            for (var otherRow : other)
+            {
+                if (otherRow == null || otherRow.length != Width)
+                {
+                    return false;
+                }
+                var cellIterator = rowIterator.next().iterator();
+                for (var otherCell : otherRow)
+                {
+                    var cell = cellIterator.next();
+                    if (cell != otherCell)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }
