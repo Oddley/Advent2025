@@ -120,6 +120,31 @@ public class Diagram {
         return grid.get(i);
     }
 
+    public Diagram WithCell(int xPos, int yPos, Cell cell)
+    {
+        if (xPos < 0 || yPos < 0 || xPos >= Width || yPos >= Height)
+        {
+            throw new IllegalArgumentException("Position("+xPos+","+yPos+") out of range! Width="+Width+", Height="+Height);
+        }
+
+        // Copy Grid
+        var newGrid = new ArrayList<List<Cell>>();
+        for (int i = 0; i < Height; i++)
+        {
+            if (i == yPos) {
+                var newRow = new ArrayList<>(grid.get(i));
+                newRow.set(xPos, cell);
+                newGrid.add(Collections.unmodifiableList(newRow));
+            }
+            else
+            {
+                newGrid.add(grid.get(i));
+            }
+        }
+
+        return new Diagram(newGrid, StartX);
+    }
+
     public Diagram WithRow(int rowIndex, List<Cell> newRow)
     {
         if (newRow.size() != Width)
