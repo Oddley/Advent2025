@@ -12,6 +12,11 @@ public class CoordPair
         Distance = Coord.Distance(a,b);
     }
 
+    public boolean Contains(Coord other)
+    {
+        return other.equals(A) || other.equals(B);
+    }
+
     @Override
     public boolean equals(Object obj)
     {

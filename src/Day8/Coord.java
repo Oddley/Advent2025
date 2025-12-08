@@ -22,6 +22,16 @@ public class Coord
         return other.X == this.X && other.Y == this.Y && other.Z == this.Z;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1; // Start with a non-zero value
+        result = prime * result + X;
+        result = prime * result + Y;
+        result = prime * result + Z;
+        return result;
+    }
+
     public static double Distance(Coord a, Coord b)
     {
         return Math.sqrt(
