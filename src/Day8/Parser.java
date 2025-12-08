@@ -4,12 +4,12 @@ import java.util.List;
 
 public class Parser
 {
-    public List<Coord> ParseLines(List<String> lines)
+    public static List<Coord> ParseLines(List<String> lines)
     {
         return null;
     }
 
-    public Coord ParseLine(String line)
+    public static Coord ParseLine(String line)
     {
         return null;
     }

@@ -1,5 +1,7 @@
 package Day8;
 
+import Day6.Column;
+
 public class Coord
 {
     public final int X;
@@ -21,5 +23,15 @@ public class Coord
                 Math.pow((double)a.Y - (double)b.Y, 2D) +
                 Math.pow((double)a.Z - (double)b.Z, 2D));
          */
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Coord other = (Coord) obj;
+        return other.X == this.X && other.Y == this.Y && other.Z == this.Z;
     }
 }
