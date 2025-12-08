@@ -1,7 +1,6 @@
 package Day7;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SimpleManifold
@@ -39,41 +38,37 @@ public class SimpleManifold
             throw new IllegalStateException("Done!");
         }
         var step = this.Step + 1;
-        var previousState = Grid.GetRow(step);
-        var nextState = new ArrayList<>(previousState);
+        var row = Grid.GetRow(step);
         var newHeads = new ArrayList<Integer>();
         var newSplits = 0;
 
         // Advance Beams
         for (int index : Heads)
         {
-            var cell = nextState.get(index);
+            var cell = row.get(index);
             if (cell == Cell.Empty)
             {
-                nextState.set(index, Cell.Beam);
                 newHeads.add(index);
             }
             else if (cell == Cell.Splitter)
             {
                 newSplits++;
                 // Left
-                if (index > 0 && nextState.get(index - 1) == Cell.Empty)
+                if (index > 0 && row.get(index - 1) == Cell.Empty)
                 {
-                    nextState.set(index - 1, Cell.Beam);
                     newHeads.add(index - 1);
                 }
 
                 // Right
-                if (index + 1 < Grid.Width && nextState.get(index + 1) == Cell.Empty)
+                if (index + 1 < Grid.Width && row.get(index + 1) == Cell.Empty)
                 {
-                    nextState.set(index + 1, Cell.Beam);
                     newHeads.add(index + 1);
                 }
             }
         }
 
         var splitCount = this.Splits + newSplits;
-        return new SimpleManifold(Grid.WithRow(step, nextState), step, Collections.unmodifiableList(newHeads), splitCount);
+        return new SimpleManifold(Grid, step, newHeads.stream().distinct().toList(), splitCount);
     }
 
     public SimpleManifold GetFinalState()

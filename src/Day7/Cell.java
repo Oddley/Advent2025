@@ -3,7 +3,6 @@ package Day7;
 public enum Cell {
     Empty('.'),
     Start('S'),
-    Beam('|'),
     Splitter('^');
 
     public final char Char;

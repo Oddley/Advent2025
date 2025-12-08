@@ -77,11 +77,8 @@ public class Diagram {
         for (int i = 0; i < row.length; i++)
         {
             var cell = row[i];
-            switch (cell)
-            {
-                case Cell.Start:
-                case Cell.Beam:
-                    throw new IllegalArgumentException("Grid row@"+index+" has unexpected Cell("+cell+")@"+i);
+            if (cell == Cell.Start) {
+                throw new IllegalArgumentException("Grid row@" + index + " has unexpected Cell(" + cell + ")@" + i);
             }
         }
     }
@@ -118,53 +115,5 @@ public class Diagram {
     public List<Cell> GetRow(int i)
     {
         return grid.get(i);
-    }
-
-    public Diagram WithCell(int xPos, int yPos, Cell cell)
-    {
-        if (xPos < 0 || yPos < 0 || xPos >= Width || yPos >= Height)
-        {
-            throw new IllegalArgumentException("Position("+xPos+","+yPos+") out of range! Width="+Width+", Height="+Height);
-        }
-
-        // Copy Grid
-        var newGrid = new ArrayList<List<Cell>>();
-        for (int i = 0; i < Height; i++)
-        {
-            if (i == yPos) {
-                var newRow = new ArrayList<>(grid.get(i));
-                newRow.set(xPos, cell);
-                newGrid.add(Collections.unmodifiableList(newRow));
-            }
-            else
-            {
-                newGrid.add(grid.get(i));
-            }
-        }
-
-        return new Diagram(newGrid, StartX);
-    }
-
-    public Diagram WithRow(int rowIndex, List<Cell> newRow)
-    {
-        if (newRow.size() != Width)
-        {
-            throw new IllegalArgumentException("NewRow.size="+newRow.size()+", expecting "+Width);
-        }
-
-        // Copy Grid
-        var newGrid = new ArrayList<List<Cell>>();
-        for (int i = 0; i < Height; i++)
-        {
-            if (i == rowIndex) {
-                newGrid.add(Collections.unmodifiableList(newRow));
-            }
-            else
-            {
-                newGrid.add(grid.get(i));
-            }
-        }
-
-        return new Diagram(newGrid, StartX);
     }
 }

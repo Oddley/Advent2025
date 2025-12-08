@@ -13,7 +13,6 @@ class CellTest {
         assertAll(
                 ()->assertEquals(Cell.Empty, Cell.Parse('.')),
                 ()->assertEquals(Cell.Splitter, Cell.Parse('^')),
-                ()->assertEquals(Cell.Beam, Cell.Parse('|')),
                 ()->assertEquals(Cell.Start, Cell.Parse('S'))
         );
     }

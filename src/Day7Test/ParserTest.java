@@ -9,12 +9,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
-    static String Line1= ".S|^";
-    static String Line2= "....";
+    static String Line1= ".S^";
+    static String Line2= "...";
     static List<String> Lines = List.of(Line1, Line2);
 
-    static Cell[] Cells1 = new Cell[]{ Cell.Empty, Cell.Start, Cell.Beam, Cell.Splitter };
-    static Cell[] Cells2 = new Cell[]{ Cell.Empty, Cell.Empty, Cell.Empty, Cell.Empty };
+    static Cell[] Cells1 = new Cell[]{ Cell.Empty, Cell.Start, Cell.Splitter };
+    static Cell[] Cells2 = new Cell[]{ Cell.Empty, Cell.Empty, Cell.Empty };
     static Cell[][] CellGrid = new Cell[][]{ Cells1, Cells2 };
 
     @Test

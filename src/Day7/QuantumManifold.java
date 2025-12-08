@@ -41,20 +41,20 @@ public class QuantumManifold
         var cell = previousState.get(Head);
         if (cell == Cell.Empty)
         {
-            result.add(new QuantumManifold(Grid.WithCell(Head, step, Cell.Beam), step, Head));
+            result.add(new QuantumManifold(Grid, step, Head));
         }
         else if (cell == Cell.Splitter)
         {
             // Left
             if (Head > 0 && previousState.get(Head - 1) == Cell.Empty)
             {
-                result.add(new QuantumManifold(Grid.WithCell(Head - 1, step, Cell.Beam), step, Head - 1));
+                result.add(new QuantumManifold(Grid, step, Head - 1));
             }
 
             // Right
             if (Head + 1 < Grid.Width && previousState.get(Head + 1) == Cell.Empty)
             {
-                result.add(new QuantumManifold(Grid.WithCell(Head + 1, step, Cell.Beam), step, Head + 1));
+                result.add(new QuantumManifold(Grid, step, Head + 1));
             }
         }
 

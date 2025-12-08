@@ -80,24 +80,10 @@ class DiagramValidationTest {
     }
 
     @Test
-    void validateStartingRowFailHasBeam()
-    {
-        var subject = new Cell[]{ Cell.Start, Cell.Beam };
-        assertThrows(IllegalArgumentException.class, ()->Diagram.ValidateStartingRow(subject));
-    }
-
-    @Test
     void validateStartingRowFailHasSplitter()
     {
         var subject = new Cell[]{ Cell.Start, Cell.Splitter };
         assertThrows(IllegalArgumentException.class, ()->Diagram.ValidateStartingRow(subject));
-    }
-
-    @Test
-    void validateNonStartRowFailHasBeam()
-    {
-        var subject = new Cell[]{ Cell.Beam };
-        assertThrows(IllegalArgumentException.class, ()->Diagram.ValidateNonStartRow(subject, 1, 1));
     }
 
     @Test
