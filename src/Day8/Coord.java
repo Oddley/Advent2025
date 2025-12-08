@@ -1,7 +1,5 @@
 package Day8;
 
-import Day6.Column;
-
 public class Coord
 {
     public final int X;
@@ -16,13 +14,10 @@ public class Coord
 
     public static double Distance(Coord a, Coord b)
     {
-        return 0;
-        /*
         return Math.sqrt(
                 Math.pow((double)a.X - (double)b.X, 2D) +
                 Math.pow((double)a.Y - (double)b.Y, 2D) +
                 Math.pow((double)a.Z - (double)b.Z, 2D));
-         */
     }
 
     @Override

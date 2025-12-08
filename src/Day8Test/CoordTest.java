@@ -11,7 +11,7 @@ class CoordTest {
     void distance() {
         var a = new Coord(0, 1, 2);
         var b = new Coord(3, 4, 5);
-        var expected = 5.196152D;
+        var expected = 5.196152422706632D;
         assertEquals(expected, Coord.Distance(a,b));
     }
 }
