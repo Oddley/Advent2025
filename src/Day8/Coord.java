@@ -12,14 +12,6 @@ public class Coord
         Z = z;
     }
 
-    public static double Distance(Coord a, Coord b)
-    {
-        return Math.sqrt(
-                Math.pow((double)a.X - (double)b.X, 2D) +
-                Math.pow((double)a.Y - (double)b.Y, 2D) +
-                Math.pow((double)a.Z - (double)b.Z, 2D));
-    }
-
     @Override
     public boolean equals(Object obj)
     {
@@ -29,4 +21,14 @@ public class Coord
         Coord other = (Coord) obj;
         return other.X == this.X && other.Y == this.Y && other.Z == this.Z;
     }
+
+    public static double Distance(Coord a, Coord b)
+    {
+        return Math.sqrt(
+                Math.pow((double)a.X - (double)b.X, 2D) +
+                        Math.pow((double)a.Y - (double)b.Y, 2D) +
+                        Math.pow((double)a.Z - (double)b.Z, 2D));
+    }
+
+    public static Coord Zero = new Coord(0,0,0);
 }

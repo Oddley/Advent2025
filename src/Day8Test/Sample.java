@@ -1,6 +1,7 @@
 package Day8Test;
 
 import Day8.Coord;
+import Day8.CoordPair;
 
 import java.util.List;
 
@@ -51,4 +52,10 @@ public class Sample
             new Coord(984,92,344),
             new Coord(425,690,689)
     );
+
+    public static final CoordPair FirstPair = new CoordPair(new Coord(162,817,812), new Coord(425,690,689));
+    public static final CoordPair SecondPair = new CoordPair(new Coord(162,817,812), new Coord(431,825,988));
+    public static final CoordPair ThirdPair = new CoordPair(new Coord(906,360,560), new Coord(805,96,715));
+    public static final CoordPair FourthPair = new CoordPair(new Coord(431,825,988), new Coord(425,690,689));
+    public static final List<CoordPair> FirstFour = List.of(FirstPair, SecondPair, ThirdPair, FourthPair);
 }
