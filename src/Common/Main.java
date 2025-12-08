@@ -4,10 +4,11 @@ import org.jetbrains.annotations.NotNull;
 void main() throws IOException {
     var lines = InputReader.ReadAllLines("Day7/input.txt");
     var grid = Day7.Parser.ParseLines(lines);
-    var diagram = new Day7.SimpleManifold(grid);
-    var end = diagram.GetFinalState();
+    var simple = new Day7.SimpleManifold(grid);
+    var quantum = new Day7.QuantumManifold(grid);
 
-    PrintLine("Part 1 Answer: {0,number,#}", end.Splits);
+    PrintLine("Part 1 Answer: {0,number,#}", simple.GetFinalState().Splits);
+    PrintLine("Part 2 Answer: {0,number,#}", quantum.PossibleFutures());
 }
 
 void PrintLine(@NotNull String format, Object... args)
