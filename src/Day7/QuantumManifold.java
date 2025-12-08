@@ -5,24 +5,24 @@ import java.util.*;
 public class QuantumManifold
 {
     public final Diagram Grid;
-    public final Map<Integer,Integer> HeadToPossiblities;
+    public final Map<Integer,Long> HeadToPossiblities;
     public final int Step;
-    public final int TotalPossibilities;
+    public final Long TotalPossibilities;
 
     public QuantumManifold(Cell[][] grid)
     {
         this.Grid = Diagram.GetStartingGrid(grid);
         this.Step = 0;
-        this.HeadToPossiblities = Map.of(this.Grid.StartX, 1);
-        this.TotalPossibilities = 1;
+        this.HeadToPossiblities = Map.of(this.Grid.StartX, 1L);
+        this.TotalPossibilities = 1L;
     }
 
-    private QuantumManifold(Diagram grid, int step, Map<Integer, Integer> headToPossiblities)
+    private QuantumManifold(Diagram grid, int step, Map<Integer, Long> headToPossiblities)
     {
         this.Grid = grid;
         this.Step = step;
         this.HeadToPossiblities = headToPossiblities;
-        this.TotalPossibilities = headToPossiblities.values().stream().reduce(0, Integer::sum);
+        this.TotalPossibilities = headToPossiblities.values().stream().reduce(0L, Long::sum);
     }
 
     public boolean HasNext()
@@ -39,7 +39,7 @@ public class QuantumManifold
         }
         var step = this.Step + 1;
         var row = Grid.GetRow(step);
-        var newMap = new HashMap<Integer,Integer>();
+        var newMap = new HashMap<Integer,Long>();
 
         // Advance Beams
         for (var pair : HeadToPossiblities.entrySet())
@@ -70,9 +70,9 @@ public class QuantumManifold
         return new QuantumManifold(Grid, step, Collections.unmodifiableMap(newMap));
     }
 
-    private void AddToMap(HashMap<Integer, Integer> map, int key, int value)
+    private void AddToMap(HashMap<Integer, Long> map, int key, long value)
     {
-        map.put(key, map.getOrDefault(key, 0) + value);
+        map.put(key, map.getOrDefault(key, 0L) + value);
     }
 
     public QuantumManifold GetFinalState()

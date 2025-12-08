@@ -11,6 +11,7 @@ void main() throws IOException {
     PrintLine("Part 2 Answer: {0,number,#}", quantum.GetFinalState().TotalPossibilities);
 
     // 1853021308 - Too Low
+    // 27055852018812 - Correct!
 }
 
 void PrintLine(@NotNull String format, Object... args)
