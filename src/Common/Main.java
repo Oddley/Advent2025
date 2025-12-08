@@ -8,8 +8,8 @@ void main() throws IOException {
     var quantum = new Day7.QuantumManifold(grid);
 
     PrintLine("Part 1 Answer: {0,number,#}", simple.GetFinalState().Splits);
-    PrintLine("Part 2 Answer: {0,number,#}", quantum.GetFinalState().TotalPossibilities);
 
+    PrintLine("Part 2 Answer: {0,number,#}", quantum.GetFinalState().TotalPossibilities);
     // 1853021308 - Too Low
     // 27055852018812 - Correct!
 }
