@@ -1,19 +1,30 @@
-package Day8Test;
-
-import Day8.Circuit;
-import Day8.CoordPair;
+package Day8;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CircuitBuilder
 {
+    public static int GetCoordCount(List<CoordPair> pairs)
+    {
+        var set = new HashSet<Coord>();
+        for (var pair : pairs)
+        {
+            set.add(pair.A);
+            set.add(pair.B);
+        }
+        return set.size();
+    }
+
     public static List<Circuit> BuildCircuits(List<CoordPair> pairs)
     {
+        var coordCount = GetCoordCount(pairs);
         var circuits = new LinkedList<Circuit>();
         for (var pair : pairs)
         {
+            // Find the (zero, one, or two) circuits this pair touches
             Circuit a = null;
             Circuit b = null;
             int i = 0;
@@ -35,23 +46,33 @@ public class CircuitBuilder
                     i++;
                 }
             }
+
+            // Make a new circuit
+            Circuit newCircuit;
             if (a == null && b == null)
             {
-                circuits.add(new Circuit(pair));
+                newCircuit = new Circuit(pair);
             }
             else if (a != null && b != null)
             {
-                circuits.add(b.Prepend(a).Prepend(pair));
+                newCircuit = b.Prepend(a).Prepend(pair);
             }
             else if (a != null)
             {
-                circuits.add(a.Prepend(pair));
+                newCircuit = a.Prepend(pair);
             }
             else
             {
-                circuits.add(b.Prepend(pair));
+                newCircuit = b.Prepend(pair);
             }
+
+            circuits.add(newCircuit);
+
+            if (newCircuit.CoordCount == coordCount) break;
         }
-        return Collections.unmodifiableList(circuits);
+
+        // Return a list sorted Largest first
+        circuits.sort(Circuit::CompareCoordCount);
+        return Collections.unmodifiableList(circuits.reversed());
     }
 }

@@ -8,20 +8,33 @@ public class Circuit implements Iterable<CoordPair>
 {
     public final CoordPair Head;
     public final Circuit Tail;
-    public final int Size;
+    public final int PairCount;
+    public final int CoordCount;
 
     private Circuit(CoordPair head, Circuit tail)
     {
         Head = head;
         Tail = tail;
-        Size = Tail.Size + 1;
+        PairCount = Tail.PairCount + 1;
+
+        var coordCount = Tail.CoordCount;
+        if (!Tail.Contains(head.A))
+        {
+            coordCount++;
+        }
+        if (!Tail.Contains(head.B))
+        {
+            coordCount++;
+        }
+        this.CoordCount = coordCount;
     }
 
     public Circuit(CoordPair pair)
     {
         Head = pair;
-        Size = 1;
+        PairCount = 1;
         Tail = null;
+        CoordCount = 2; // What if pair.A == pair.B?
     }
 
     public Circuit Prepend(CoordPair pair)
@@ -52,6 +65,11 @@ public class Circuit implements Iterable<CoordPair>
             }
         }
         return result;
+    }
+
+    public static int CompareCoordCount(Circuit a, Circuit b)
+    {
+        return Integer.compare(a.CoordCount, b.CoordCount);
     }
 
     @Override

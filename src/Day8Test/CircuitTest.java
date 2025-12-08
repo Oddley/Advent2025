@@ -23,7 +23,7 @@ class CircuitTest {
     {
         var subject = new Circuit(ZeroOne).Prepend(OneTwo);
         assertAll(
-                ()->assertEquals(2, subject.Size),
+                ()->assertEquals(2, subject.PairCount),
                 ()->assertEquals(OneTwo, subject.Head),
                 ()-> {
                     assertNotNull(subject.Tail);
@@ -39,7 +39,7 @@ class CircuitTest {
         var b = new Circuit(OneTwo);
         var subject = a.Prepend(b);
         assertAll(
-                ()->assertEquals(2, subject.Size),
+                ()->assertEquals(2, subject.PairCount),
                 ()->assertEquals(OneTwo, subject.Head),
                 ()-> {
                     assertNotNull(subject.Tail);
