@@ -5,21 +5,24 @@ import java.util.*;
 public class QuantumManifold
 {
     public final Diagram Grid;
+    public final Map<Integer,Integer> HeadToPossiblities;
     public final int Step;
-    public final int Head;
+    public final int TotalPossibilities;
 
     public QuantumManifold(Cell[][] grid)
     {
         this.Grid = Diagram.GetStartingGrid(grid);
         this.Step = 0;
-        this.Head = this.Grid.StartX;
+        this.HeadToPossiblities = Map.of(this.Grid.StartX, 1);
+        this.TotalPossibilities = 1;
     }
 
-    private QuantumManifold(Diagram grid, int step, int head)
+    private QuantumManifold(Diagram grid, int step, Map<Integer, Integer> headToPossiblities)
     {
         this.Grid = grid;
         this.Step = step;
-        this.Head = head;
+        this.HeadToPossiblities = headToPossiblities;
+        this.TotalPossibilities = headToPossiblities.values().stream().reduce(0, Integer::sum);
     }
 
     public boolean HasNext()
@@ -27,57 +30,58 @@ public class QuantumManifold
         return Step + 1 < Grid.Height;
     }
 
-    public List<QuantumManifold> GetNext()
+
+    public QuantumManifold GetNext()
     {
         if (!HasNext())
         {
             throw new IllegalStateException("Done!");
         }
         var step = this.Step + 1;
-        var previousState = Grid.GetRow(step);
-        var result = new ArrayList<QuantumManifold>();
+        var row = Grid.GetRow(step);
+        var newMap = new HashMap<Integer,Integer>();
 
-        // Advance Beam
-        var cell = previousState.get(Head);
-        if (cell == Cell.Empty)
+        // Advance Beams
+        for (var pair : HeadToPossiblities.entrySet())
         {
-            result.add(new QuantumManifold(Grid, step, Head));
-        }
-        else if (cell == Cell.Splitter)
-        {
-            // Left
-            if (Head > 0 && previousState.get(Head - 1) == Cell.Empty)
+            var index = pair.getKey();
+            var count = pair.getValue();
+            var cell = row.get(index);
+            if (cell == Cell.Empty)
             {
-                result.add(new QuantumManifold(Grid, step, Head - 1));
+                AddToMap(newMap, index, count);
             }
-
-            // Right
-            if (Head + 1 < Grid.Width && previousState.get(Head + 1) == Cell.Empty)
+            else if (cell == Cell.Splitter)
             {
-                result.add(new QuantumManifold(Grid, step, Head + 1));
+                // Left
+                if (index > 0 && row.get(index - 1) == Cell.Empty)
+                {
+                    AddToMap(newMap, index - 1, count);
+                }
+
+                // Right
+                if (index + 1 < Grid.Width && row.get(index + 1) == Cell.Empty)
+                {
+                    AddToMap(newMap, index + 1, count);
+                }
             }
         }
 
-        return Collections.unmodifiableList(result);
+        return new QuantumManifold(Grid, step, Collections.unmodifiableMap(newMap));
     }
 
-    public int PossibleFutures()
+    private void AddToMap(HashMap<Integer, Integer> map, int key, int value)
     {
-        int count = 0;
-        var states = new LinkedList<QuantumManifold>();
-        states.add(this);
-        while (!states.isEmpty())
+        map.put(key, map.getOrDefault(key, 0) + value);
+    }
+
+    public QuantumManifold GetFinalState()
+    {
+        var state = this;
+        while (state.HasNext())
         {
-            var state = states.remove();
-            if (state.HasNext())
-            {
-                states.addAll(state.GetNext());
-            }
-            else
-            {
-                count++;
-            }
+            state = state.GetNext();
         }
-        return count;
+        return state;
     }
 }
