@@ -2,6 +2,8 @@ package Day8;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.stream.StreamSupport;
+
 public class Circuit implements Iterable<CoordPair>
 {
     public final CoordPair Head;
@@ -22,9 +24,20 @@ public class Circuit implements Iterable<CoordPair>
         Tail = null;
     }
 
-    public Circuit WithPair(CoordPair pair)
+    public Circuit Prepend(CoordPair pair)
     {
         return new Circuit(pair, this);
+    }
+
+    public Circuit Prepend(Circuit other)
+    {
+        Circuit result = this;
+        var reversedOther = StreamSupport.stream(other.spliterator(), false).toList().reversed();
+        for (var pair : reversedOther)
+        {
+            result = result.Prepend(pair);
+        }
+        return result;
     }
 
     public boolean Contains(Coord coord)

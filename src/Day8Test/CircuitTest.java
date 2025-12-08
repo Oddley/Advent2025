@@ -19,9 +19,25 @@ class CircuitTest {
     static final CoordPair OneTwo = new CoordPair(One,Two);
 
     @Test
-    void withPair()
+    void prependPair()
     {
-        var subject = new Circuit(ZeroOne).WithPair(OneTwo);
+        var subject = new Circuit(ZeroOne).Prepend(OneTwo);
+        assertAll(
+                ()->assertEquals(2, subject.Size),
+                ()->assertEquals(OneTwo, subject.Head),
+                ()-> {
+                    assertNotNull(subject.Tail);
+                    assertEquals(ZeroOne, subject.Tail.Head);
+                }
+        );
+    }
+
+    @Test
+    void prependCircuit()
+    {
+        var a = new Circuit(ZeroOne);
+        var b = new Circuit(OneTwo);
+        var subject = a.Prepend(b);
         assertAll(
                 ()->assertEquals(2, subject.Size),
                 ()->assertEquals(OneTwo, subject.Head),
@@ -51,7 +67,7 @@ class CircuitTest {
 
     @Test
     void iterator() {
-        var subject = new Circuit(ZeroOne).WithPair(OneTwo);
+        var subject = new Circuit(ZeroOne).Prepend(OneTwo);
         var list = new ArrayList<CoordPair>();
         subject.iterator().forEachRemaining(list::add);
         var expected = List.of(OneTwo, ZeroOne);
