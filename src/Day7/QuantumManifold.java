@@ -1,8 +1,6 @@
 package Day7;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class QuantumManifold
 {
@@ -43,35 +41,43 @@ public class QuantumManifold
         var cell = previousState.get(Head);
         if (cell == Cell.Empty)
         {
-            result.add(new QuantumManifold(Grid.WithCell(Head, Step, Cell.Beam), step, Head));
+            result.add(new QuantumManifold(Grid.WithCell(Head, step, Cell.Beam), step, Head));
         }
         else if (cell == Cell.Splitter)
         {
             // Left
             if (Head > 0 && previousState.get(Head - 1) == Cell.Empty)
             {
-                result.add(new QuantumManifold(Grid.WithCell(Head - 1, Step, Cell.Beam), step, Head - 1));
+                result.add(new QuantumManifold(Grid.WithCell(Head - 1, step, Cell.Beam), step, Head - 1));
             }
 
             // Right
             if (Head + 1 < Grid.Width && previousState.get(Head + 1) == Cell.Empty)
             {
-                result.add(new QuantumManifold(Grid.WithCell(Head - 1, Step, Cell.Beam), step, Head - 1));
+                result.add(new QuantumManifold(Grid.WithCell(Head + 1, step, Cell.Beam), step, Head + 1));
             }
         }
 
         return Collections.unmodifiableList(result);
     }
 
-    /*
-    public QuantumManifold GetFinalState()
+    public int PossibleFutures()
     {
-        var state = this;
-        while (state.HasNext())
+        int count = 0;
+        var states = new LinkedList<QuantumManifold>();
+        states.add(this);
+        while (!states.isEmpty())
         {
-            state = state.GetNext();
+            var state = states.remove();
+            if (state.HasNext())
+            {
+                states.addAll(state.GetNext());
+            }
+            else
+            {
+                count++;
+            }
         }
-        return state;
+        return count;
     }
-     */
 }
