@@ -1,5 +1,7 @@
 package Day8;
 
+import Common.Coordinate.Coord3;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -9,7 +11,7 @@ public class CircuitBuilder
 {
     public static int GetCoordCount(List<CoordPair> pairs)
     {
-        var set = new HashSet<Coord>();
+        var set = new HashSet<Coord3>();
         for (var pair : pairs)
         {
             set.add(pair.A);

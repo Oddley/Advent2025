@@ -1,11 +1,13 @@
 package Day8;
 
+import Common.Coordinate.Coord3;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PairsByDistance
 {
-    public static List<CoordPair> MakePairs(List<Coord> coords)
+    public static List<CoordPair> MakePairs(List<Coord3> coords)
     {
         var result = new ArrayList<CoordPair>();
         for (int a = 0; a < coords.size() - 1; a++)

@@ -1,12 +1,12 @@
-package Day8;
+package Common.Coordinate;
 
-public class Coord
+public class Coord3
 {
     public final int X;
     public final int Y;
     public final int Z;
 
-    public Coord(int x, int y, int z) {
+    public Coord3(int x, int y, int z) {
         X = x;
         Y = y;
         Z = z;
@@ -18,7 +18,7 @@ public class Coord
         if (obj == this) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
 
-        Coord other = (Coord) obj;
+        Coord3 other = (Coord3) obj;
         return other.X == this.X && other.Y == this.Y && other.Z == this.Z;
     }
 
@@ -32,7 +32,7 @@ public class Coord
         return result;
     }
 
-    public static double Distance(Coord a, Coord b)
+    public static double Distance(Coord3 a, Coord3 b)
     {
         return Math.sqrt(
                 Math.pow((double)a.X - (double)b.X, 2D) +
@@ -40,5 +40,5 @@ public class Coord
                         Math.pow((double)a.Z - (double)b.Z, 2D));
     }
 
-    public static Coord Zero = new Coord(0,0,0);
+    public static Coord3 Zero = new Coord3(0,0,0);
 }

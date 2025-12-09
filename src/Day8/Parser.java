@@ -1,18 +1,13 @@
 package Day8;
 
-import java.util.Arrays;
+import Common.Coordinate.Coord3;
+
 import java.util.List;
 
 public class Parser
 {
-    public static List<Coord> ParseLines(List<String> lines)
+    public static List<Coord3> ParseLines(List<String> lines)
     {
-        return lines.stream().map(Parser::ParseLine).toList();
-    }
-
-    public static Coord ParseLine(String line)
-    {
-        var ints = Arrays.stream(line.split(",")).mapToInt(Integer::parseInt).toArray();
-        return new Coord(ints[0], ints[1], ints[2]);
+        return lines.stream().map(Common.Coordinate.Parser::ParseC3).toList();
     }
 }

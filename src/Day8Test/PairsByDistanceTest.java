@@ -1,6 +1,6 @@
 package Day8Test;
 
-import Day8.Coord;
+import Common.Coordinate.Coord3;
 import Day8.CoordPair;
 import Day8.PairsByDistance;
 import org.junit.jupiter.api.Test;
@@ -11,15 +11,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PairsByDistanceTest
 {
-    static final Coord Zero = Coord.Zero;
-    static final Coord One = new Coord(1,1,1);
-    static final Coord Three = new Coord(3,3,3);
+    static final Coord3 Zero = Coord3.Zero;
+    static final Coord3 One = new Coord3(1,1,1);
+    static final Coord3 Three = new Coord3(3,3,3);
 
     static final CoordPair ZeroOne = new CoordPair(Zero, One);
     static final CoordPair ZeroThree = new CoordPair(Zero, Three);
     static final CoordPair OneThree = new CoordPair(One, Three);
 
-    static final List<Coord> Coords = List.of(Zero, One, Three);
+    static final List<Coord3> Coords = List.of(Zero, One, Three);
 
     @Test
     void makePairs()

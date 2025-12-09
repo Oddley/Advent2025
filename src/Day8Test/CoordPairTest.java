@@ -1,15 +1,15 @@
 package Day8Test;
 
-import Day8.Coord;
+import Common.Coordinate.Coord3;
 import Day8.CoordPair;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CoordPairTest {
-    static final Coord Zero = Coord.Zero;
-    static final Coord One = new Coord(1,1,1);
-    static final Coord Two = new Coord(2,2,2);
+    static final Coord3 Zero = Coord3.Zero;
+    static final Coord3 One = new Coord3(1,1,1);
+    static final Coord3 Two = new Coord3(2,2,2);
     static final CoordPair ZeroOne = new CoordPair(Zero, One);
 
     @Test

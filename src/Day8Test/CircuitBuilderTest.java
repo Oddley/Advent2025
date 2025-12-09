@@ -1,5 +1,6 @@
 package Day8Test;
 
+import Common.Coordinate.Coord3;
 import Day8.*;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +23,7 @@ class CircuitBuilderTest {
     {
         var pairs = PairsByDistance.MakePairs(Sample.Coords);
         var circuits = CircuitBuilder.BuildCircuits(pairs);
-        var expectedHead = new CoordPair(new Coord(216,146,977), new Coord(117,168,530));
+        var expectedHead = new CoordPair(new Coord3(216,146,977), new Coord3(117,168,530));
         assertAll(
                 ()->assertEquals(1, circuits.size()),
                 ()->assertEquals(Sample.Coords.size(), circuits.getFirst().CoordCount),

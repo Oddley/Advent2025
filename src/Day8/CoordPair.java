@@ -1,18 +1,20 @@
 package Day8;
 
+import Common.Coordinate.Coord3;
+
 public class CoordPair
 {
-    public final Coord A;
-    public final Coord B;
+    public final Coord3 A;
+    public final Coord3 B;
     public final double Distance;
 
-    public CoordPair(Coord a, Coord b) {
+    public CoordPair(Coord3 a, Coord3 b) {
         A = a;
         B = b;
-        Distance = Coord.Distance(a,b);
+        Distance = Coord3.Distance(a,b);
     }
 
-    public boolean Contains(Coord other)
+    public boolean Contains(Coord3 other)
     {
         return other.equals(A) || other.equals(B);
     }

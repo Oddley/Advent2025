@@ -1,5 +1,6 @@
 package Day8;
 
+import Common.Coordinate.Coord3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.StreamSupport;
@@ -53,7 +54,7 @@ public class Circuit implements Iterable<CoordPair>
         return result;
     }
 
-    public boolean Contains(Coord coord)
+    public boolean Contains(Coord3 coord)
     {
         var iter = this.iterator();
         var result = false;
