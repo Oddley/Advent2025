@@ -1,6 +1,8 @@
 package Day9;
 
 import Common.Coordinate.Coord2;
+import Common.Coordinate.Rect;
+
 import java.util.List;
 
 public class FindRectangle
@@ -14,14 +16,9 @@ public class FindRectangle
             for (int b = a + 1; b < coords.size(); b++)
             {
                 var coordB = coords.get(b);
-                best = Math.max(best, Area(coordA, coordB));
+                best = Math.max(best, new Rect(coordA, coordB).Area);
             }
         }
         return best;
-    }
-
-    public static long Area(Coord2 a, Coord2 b)
-    {
-        return (1L + Math.abs(a.X - b.X)) * (1L + Math.abs(a.Y - b.Y));
     }
 }

@@ -1,6 +1,7 @@
 package Day9Test;
 
 import Common.Coordinate.Coord2;
+import Common.Coordinate.Rect;
 import Day9.FindRectangle;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ class FindRectangleTest {
 
     @Test
     void area() {
-        var subject = FindRectangle.Area(new Coord2(2,5), new Coord2(9,7));
+        var subject = new Rect(new Coord2(2,5), new Coord2(9,7)).Area;
         assertEquals(24, subject);
     }
 }
