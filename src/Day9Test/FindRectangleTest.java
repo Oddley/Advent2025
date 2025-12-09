@@ -17,7 +17,7 @@ class FindRectangleTest {
 
     @Test
     void area() {
-        var subject = new Rect(new Coord2(2,5), new Coord2(9,7)).Area;
+        var subject = new Rect(new Coord2(2,5), new Coord2(9,7)).GetArea();
         assertEquals(24, subject);
     }
 }

@@ -16,7 +16,7 @@ public class FindRectangle
             for (int b = a + 1; b < coords.size(); b++)
             {
                 var coordB = coords.get(b);
-                best = Math.max(best, new Rect(coordA, coordB).Area);
+                best = Math.max(best, new Rect(coordA, coordB).GetArea());
             }
         }
         return best;
