@@ -36,5 +36,10 @@ public class Coord2
                         Math.pow((double)a.Y - (double)b.Y, 2D));
     }
 
+    public static Coord2 Subtract(Coord2 minuend, Coord2 subtrahend)
+    {
+        return new Coord2(minuend.X - subtrahend.X, minuend.Y - subtrahend.Y);
+    }
+
     public static Coord2 Zero = new Coord2(0,0);
 }
