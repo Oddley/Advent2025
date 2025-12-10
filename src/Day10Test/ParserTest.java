@@ -12,7 +12,7 @@ class ParserTest {
     {
         var subject = Parser.ParseLine(Sample.Input.getFirst());
         assertAll(
-                ()->assertEquals(subject.DesiredLights.Lights, Sample.Machine1.DesiredLights.Lights),
+                ()->assertEquals(subject.DesiredLights, Sample.Machine1.DesiredLights),
                 ()->assertEquals(subject.Buttons, Sample.Machine1.Buttons)
         );
     }

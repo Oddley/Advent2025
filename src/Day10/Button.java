@@ -11,9 +11,8 @@ public class Button
         EffectPositions = Collections.unmodifiableSet(effectPositions);
     }
 
-    // Convenience Constructors
-    public Button(int a) { this(Set.of(a)); }
-    public Button(int a, int b) { this(Set.of(a,b)); }
+    // Convenience Constructor
+    public Button(Integer... args) { this(Set.of(args)); }
 
     @Override
     public boolean equals(Object obj)
