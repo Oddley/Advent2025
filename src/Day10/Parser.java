@@ -1,12 +1,6 @@
 package Day10;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 public class Parser
 {
@@ -27,9 +21,9 @@ public class Parser
         but its indicator lights are all initially off.
      */
 
-    public static void ParseLine(String line)
+    public static MachineConfiguration ParseLine(String line)
     {
-        Indicators indicators;
+        var indicators = Indicators.Empty;
         var buttons = new ArrayList<Button>();
         for (var block : line.split(" "))
         {
@@ -43,6 +37,7 @@ public class Parser
                     break;
             }
         }
+        return new MachineConfiguration(indicators, buttons);
     }
 
     public static Indicators ParseIndicators(String input)
@@ -58,7 +53,7 @@ public class Parser
     public static Button ParseButton(String input)
     {
         input = input.substring(1, input.length() - 1);
-        var numbers = new ArrayList<Integer>();
+        var numbers = new HashSet<Integer>();
         Arrays.stream(input.split(",")).mapToInt(Integer::parseInt).forEach(numbers::add);
         return new Button(numbers);
     }

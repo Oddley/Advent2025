@@ -10,4 +10,6 @@ public class Indicators
     public Indicators(List<Boolean> lights) {
         Lights = Collections.unmodifiableList(lights);
     }
+
+    public static final Indicators Empty = new Indicators(List.of());
 }
