@@ -1,4 +1,6 @@
 import Common.InputReader;
+import Day9.FindLargestRectangle;
+import Day9Test.Sample;
 import org.jetbrains.annotations.NotNull;
 
 void main() throws IOException {
@@ -7,8 +9,10 @@ void main() throws IOException {
 
     // Part 1
     // Answer = 4781235324
-    var answer1 = Day9.FindRectangle.LargestArea(coords);
-    PrintLine("Part 1 Answer: {0,number,#}", answer1);
+    //var answer1 = FindLargestRectangle.Part1(coords);
+    //PrintLine("Part 1 Answer: {0,number,#}", answer1);
+    var answer2 = FindLargestRectangle.Part2(Sample.Coords);
+    PrintLine("Part 2 Answer: {0,number,#}", answer2);
 }
 
 void PrintLine(@NotNull String format, Object... args)
