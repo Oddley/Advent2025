@@ -1,36 +1,30 @@
 package Day10;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class Indicators
+public class Indicators<T>
 {
-    public final List<Boolean> Lights;
+    public final List<T> Values;
+
     public final int Count()
     {
-        return Lights.size();
+        return Values.size();
     }
 
-    public Indicators(List<Boolean> lights) {
-        Lights = Collections.unmodifiableList(lights);
-    }
-
-    public Indicators Toggle(Collection<Integer> positions) {
-        var newLights = new ArrayList<>(Lights);
-        for (var position : positions) {
-            newLights.set(position, !newLights.get(position));
-        }
-        return new Indicators(newLights);
-    }
-
-    public static Indicators Reset(int size)
+    public Indicators()
     {
-        return new Indicators(Collections.nCopies(size, false));
+        Values = List.of();
     }
 
-    public static final Indicators Empty = new Indicators(List.of());
+    public Indicators(int size, T value)
+    {
+        this(Collections.nCopies(size, value));
+    }
+
+    public Indicators(List<T> values) {
+        Values = Collections.unmodifiableList(values);
+    }
 
     @Override
     public boolean equals(Object obj)
@@ -38,7 +32,7 @@ public class Indicators
         if (obj == this) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
 
-        Indicators other = (Indicators) obj;
-        return other.Lights.equals(this.Lights);
+        Indicators<T> other = (Indicators<T>) obj;
+        return other.Values.equals(this.Values);
     }
 }

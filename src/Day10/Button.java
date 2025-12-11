@@ -1,18 +1,18 @@
 package Day10;
 
 import java.util.Collections;
-import java.util.Set;
+import java.util.List;
 
 public class Button
 {
-    public final Set<Integer> EffectPositions;
+    public final List<Integer> EffectPositions;
 
-    public Button(Set<Integer> effectPositions) {
-        EffectPositions = Collections.unmodifiableSet(effectPositions);
+    public Button(List<Integer> effectPositions) {
+        EffectPositions = Collections.unmodifiableList(effectPositions);
     }
 
     // Convenience Constructor
-    public Button(Integer... args) { this(Set.of(args)); }
+    public Button(Integer... args) { this(List.of(args)); }
 
     @Override
     public boolean equals(Object obj)

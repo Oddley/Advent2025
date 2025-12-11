@@ -21,9 +21,13 @@ public class Parser
         but its indicator lights are all initially off.
      */
 
+    static final Indicators<Boolean> EmptyLights = new Indicators<Boolean>();
+    static final Indicators<Integer> EmptyJoltages = new Indicators<Integer>();
+
     public static MachineConfiguration ParseLine(String line)
     {
-        var indicators = Indicators.Empty;
+        var indicators = EmptyLights;
+        var joltages = EmptyJoltages;
         var buttons = new ArrayList<Button>();
         for (var block : line.split(" "))
         {
@@ -35,26 +39,37 @@ public class Parser
                 case '(':
                     buttons.add(ParseButton(block));
                     break;
+                case '{':
+                    joltages = ParseJoltages(block);
+                    break;
             }
         }
-        return new MachineConfiguration(indicators, buttons);
+        return new MachineConfiguration(indicators, buttons, joltages);
     }
 
-    public static Indicators ParseIndicators(String input)
+    public static Indicators<Boolean> ParseIndicators(String input)
     {
         var lights = new ArrayList<Boolean>();
         for (int i = 0; i < input.length() - 2; i++)
         {
             lights.add(input.charAt(i+1) == '#');
         }
-        return new Indicators(lights);
+        return new Indicators<>(lights);
     }
 
     public static Button ParseButton(String input)
     {
         input = input.substring(1, input.length() - 1);
-        var numbers = new HashSet<Integer>();
+        var numbers = new ArrayList<Integer>();
         Arrays.stream(input.split(",")).mapToInt(Integer::parseInt).forEach(numbers::add);
         return new Button(numbers);
+    }
+
+    public static Indicators<Integer> ParseJoltages(String input)
+    {
+        input = input.substring(1, input.length() - 1);
+        var numbers = new ArrayList<Integer>();
+        Arrays.stream(input.split(",")).mapToInt(Integer::parseInt).forEach(numbers::add);
+        return new Indicators<>(numbers);
     }
 }

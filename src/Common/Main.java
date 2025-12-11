@@ -13,6 +13,6 @@ void main() throws IOException {
 
     // Part 2
     // Answer =
-    //long answer2 = 0;
-    //Out.PrintLine("Part 2 Answer: {0,number,#}", answer2);
+    long answer2 = Activator.ActivateAll(machines, Activator::Part2Activate);
+    Out.PrintLine("Part 1 Answer: {0,number,#}", answer2);
 }
