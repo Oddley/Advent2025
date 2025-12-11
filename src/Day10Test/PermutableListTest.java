@@ -1,6 +1,7 @@
-package Day10;
+package Day10Test;
 
 import Common.Out;
+import Day10.PermutableList;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,9 +15,9 @@ class PermutableListTest
     void create()
     {
         var expected = CharList("ABC");
-        var subject = new PermutableList<>(expected);
+        var subject = new PermutableList<>(expected).iterator();
         assertAll(
-                ()->assertEquals(expected, subject.Values),
+                ()->assertEquals(expected, subject.next()),
                 ()->assertTrue(subject.hasNext())
         );
     }
@@ -25,10 +26,11 @@ class PermutableListTest
     void permuteOnce()
     {
         var start = CharList("ABC");
-        var subject = new PermutableList<>(start).getNext();
+        var subject = new PermutableList<>(start).iterator();
+        subject.next();
         var expected = CharList("ACB");
         assertAll(
-                ()->assertEquals(expected, subject.Values),
+                ()->assertEquals(expected, subject.next()),
                 ()->assertTrue(subject.hasNext())
         );
     }
@@ -37,13 +39,11 @@ class PermutableListTest
     void permuteEnds()
     {
         var start = CharList("ABC");
-        var subject = new PermutableList<>(start);
-        var count = 1;
-        Print(subject.Values);
+        var subject = new PermutableList<>(start).iterator();
+        var count = 0;
         while (subject.hasNext())
         {
-            subject = subject.getNext();
-            Print(subject.Values);
+            subject.next();
             count++;
         }
         assertEquals(6, count);

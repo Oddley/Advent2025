@@ -1,23 +1,41 @@
 package Day10;
 
-import java.util.Random;
+import java.util.List;
 
 public class Activator
 {
+    public static long PartOne(List<MachineConfiguration> machines)
+    {
+        var total = 0L;
+        for (var machine : machines)
+        {
+            total += Activate(machine);
+        }
+        return total;
+    }
+
     public static int Activate(MachineConfiguration machine)
     {
-        var state = new MachineState(machine);
-        var buttonCount = state.Config.Buttons.size();
-        var random = new Random();
-        Print(state.Lights);
-        while (!state.IsOn())
+        var permutations = new PermutableList<>(machine.Buttons);
+        var best = Integer.MAX_VALUE;
+        var resetState = new MachineState(machine);
+        for (var attempt : permutations)
         {
-            // Push Random Buttons
-            var button = random.nextInt(0, buttonCount);
-            state = state.PushButton(button);
-            Print(state.Lights, button);
+            var state = resetState;
+            var presses = 0;
+            while (!state.IsOn() &&
+                    presses < attempt.size() &&
+                    presses < best)
+            {
+                state = state.Push(attempt.get(presses));
+                presses++;
+            }
+            if (state.IsOn() && presses < best)
+            {
+                best = presses;
+            }
         }
-        return state.PressCount;
+        return best;
     }
 
     static void Print(Indicators lights, int button)

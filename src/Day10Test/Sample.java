@@ -19,4 +19,16 @@ public class Sample
             List.of(new Button(3), new Button(1,3), new Button(2),
                     new Button(2,3), new Button(0,2), new Button(0,1))
     );
+
+    public static final MachineConfiguration Machine2 = new MachineConfiguration(
+            new Indicators(List.of(false,false,false,true,false)),
+            List.of(new Button(0,2,3,4), new Button(2,3), new Button(0,4),
+                    new Button(0,1,2), new Button(1,2,3,4), new Button(0,1))
+    );
+
+    public static final MachineConfiguration Machine3 = new MachineConfiguration(
+            new Indicators(List.of(false,true,true,true,false,true)),
+            List.of(new Button(0,1,2,3,4), new Button(0,3,4), new Button(0,1,2,4,5),
+                    new Button(1,2))
+    );
 }

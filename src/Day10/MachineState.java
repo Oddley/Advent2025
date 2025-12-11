@@ -23,9 +23,8 @@ public class MachineState
         return Lights.equals(Config.DesiredLights);
     }
 
-    public MachineState PushButton(int buttonIndex)
+    public MachineState Push(Button button)
     {
-        var button = Config.Buttons.get(buttonIndex);
         var newLights = Lights.Toggle(button.EffectPositions);
         return new MachineState(Config, newLights, PressCount + 1);
     }
