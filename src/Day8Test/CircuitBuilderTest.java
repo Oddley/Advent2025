@@ -27,7 +27,7 @@ class CircuitBuilderTest {
         assertAll(
                 ()->assertEquals(1, circuits.size()),
                 ()->assertEquals(Sample.Coords.size(), circuits.getFirst().CoordCount),
-                ()->assertEquals(expectedHead, circuits.getFirst().Head)
+                ()->assertEquals(expectedHead, circuits.getFirst().iterator().next())
         );
     }
 

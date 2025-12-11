@@ -22,13 +22,11 @@ class CircuitTest {
     void prependPair()
     {
         var subject = new Circuit(ZeroOne).Prepend(OneTwo);
+        var iterator = subject.iterator();
         assertAll(
                 ()->assertEquals(2, subject.PairCount),
-                ()->assertEquals(OneTwo, subject.Head),
-                ()-> {
-                    assertNotNull(subject.Tail);
-                    assertEquals(ZeroOne, subject.Tail.Head);
-                }
+                ()->assertEquals(OneTwo, iterator.next()),
+                ()->assertEquals(ZeroOne, iterator.next())
         );
     }
 
@@ -38,13 +36,11 @@ class CircuitTest {
         var a = new Circuit(ZeroOne);
         var b = new Circuit(OneTwo);
         var subject = a.Prepend(b);
+        var iterator = subject.iterator();
         assertAll(
                 ()->assertEquals(2, subject.PairCount),
-                ()->assertEquals(OneTwo, subject.Head),
-                ()-> {
-                    assertNotNull(subject.Tail);
-                    assertEquals(ZeroOne, subject.Tail.Head);
-                }
+                ()->assertEquals(OneTwo, iterator.next()),
+                ()->assertEquals(ZeroOne, iterator.next())
         );
     }
 

@@ -1,5 +1,7 @@
 package Day10;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Activator
@@ -16,45 +18,23 @@ public class Activator
 
     public static int Activate(MachineConfiguration machine)
     {
-        var permutations = new PermutableList<>(machine.Buttons);
-        var best = Integer.MAX_VALUE;
-        var resetState = new MachineState(machine);
-        for (var attempt : permutations)
-        {
-            var state = resetState;
-            var presses = 0;
-            while (!state.IsOn() &&
-                    presses < attempt.size() &&
-                    presses < best)
-            {
-                state = state.Push(attempt.get(presses));
-                presses++;
-            }
-            if (state.IsOn() && presses < best)
-            {
-                best = presses;
+        var states = new LinkedList<MachineState>();
+        states.add(new MachineState(machine));
+        int result = Integer.MAX_VALUE;
+        var alreadyPressed = new HashSet<Button>();
+        while (result == Integer.MAX_VALUE && !states.isEmpty()) {
+            var state = states.pop();
+            if (state.IsOn()) {
+                result = state.Pressed.Count;
+            } else {
+                // Add Pressed buttons to alreadyPressed
+                state.Pressed.iterator().forEachRemaining(alreadyPressed::add);
+                // Add new states to list
+                machine.Buttons.stream().filter(button -> !alreadyPressed.contains(button))
+                        .map(state::Push).forEach(states::add);
+                alreadyPressed.clear();
             }
         }
-        return best;
-    }
-
-    static void Print(Indicators lights, int button)
-    {
-        Common.Out.PrintLine("{0} After Press={1}", ToString(lights), button);
-    }
-
-    static void Print(Indicators lights)
-    {
-        Common.Out.PrintLine(ToString(lights));
-    }
-
-    static String ToString(Indicators lights)
-    {
-        var sb = new StringBuilder();
-        for (var light : lights.Lights)
-        {
-            sb.append(light ? '#' : '.');
-        }
-        return sb.toString();
+        return result;
     }
 }

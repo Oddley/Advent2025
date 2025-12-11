@@ -53,7 +53,7 @@ public class CircuitBuilder
             Circuit newCircuit;
             if (a == null && b == null)
             {
-                newCircuit = new Circuit(pair);
+                newCircuit = new Circuit().Prepend(pair);
             }
             else if (a != null && b != null)
             {

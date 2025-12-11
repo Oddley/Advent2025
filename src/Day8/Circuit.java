@@ -1,40 +1,43 @@
 package Day8;
 
 import Common.Coordinate.Coord3;
-import org.jetbrains.annotations.NotNull;
+import Common.FIterable;
 
 import java.util.stream.StreamSupport;
 
-public class Circuit implements Iterable<CoordPair>
+public class Circuit extends FIterable<CoordPair> implements Iterable<CoordPair>
 {
-    public final CoordPair Head;
-    public final Circuit Tail;
     public final int PairCount;
     public final int CoordCount;
 
     private Circuit(CoordPair head, Circuit tail)
     {
-        Head = head;
-        Tail = tail;
-        PairCount = Tail.PairCount + 1;
+        super(head,tail);
+        PairCount = tail.PairCount + 1;
 
-        var coordCount = Tail.CoordCount;
-        if (!Tail.Contains(head.A))
+        var coordCount = tail.CoordCount;
+        if (!tail.Contains(head.A))
         {
             coordCount++;
         }
-        if (!Tail.Contains(head.B))
+        if (!tail.Contains(head.B))
         {
             coordCount++;
         }
         this.CoordCount = coordCount;
     }
 
+    public Circuit()
+    {
+        super();
+        PairCount = 0;
+        CoordCount = 0;
+    }
+
     public Circuit(CoordPair pair)
     {
-        Head = pair;
+        super(pair, new Circuit());
         PairCount = 1;
-        Tail = null;
         CoordCount = 2; // What if pair.A == pair.B?
     }
 
@@ -71,31 +74,5 @@ public class Circuit implements Iterable<CoordPair>
     public static int CompareCoordCount(Circuit a, Circuit b)
     {
         return Integer.compare(a.CoordCount, b.CoordCount);
-    }
-
-    @Override
-    public @NotNull java.util.Iterator<CoordPair> iterator() {
-        return new Iterator(this);
-    }
-
-    private static class Iterator implements java.util.Iterator<CoordPair> {
-        private Circuit Circuit;
-
-        public Iterator(Circuit circuit)
-        {
-            this.Circuit = circuit;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return Circuit != null;
-        }
-
-        @Override
-        public CoordPair next() {
-            var result = Circuit.Head;
-            Circuit = Circuit.Tail;
-            return result;
-        }
     }
 }

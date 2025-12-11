@@ -7,7 +7,7 @@ void main() throws IOException {
     var machines = lines.stream().map(Day10.Parser::ParseLine).toList();
 
     // Part 1
-    // Answer =
+    // Answer = 571
     long answer1 = Activator.PartOne(machines);
     Out.PrintLine("Part 1 Answer: {0,number,#}", answer1);
 
