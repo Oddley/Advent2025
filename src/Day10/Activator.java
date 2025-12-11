@@ -41,22 +41,13 @@ public class Activator
     }
 
     public static Integer Part2Activate(MachineConfiguration machine) {
-        var states = new LinkedList<Part1MachineState>();
-        states.add(new Part1MachineState(machine));
+        var states = new LinkedList<Part2MachineState>();
+        states.add(new Part2MachineState(machine));
         int result = Integer.MAX_VALUE;
         var alreadyPressed = new HashSet<Button>();
         while (result == Integer.MAX_VALUE && !states.isEmpty()) {
             var state = states.pop();
-            if (state.IsOn()) {
-                result = state.Pressed.Count;
-            } else {
-                // Add Pressed buttons to alreadyPressed
-                state.Pressed.iterator().forEachRemaining(alreadyPressed::add);
-                // Add new states to list
-                machine.Buttons.stream().filter(button -> !alreadyPressed.contains(button))
-                        .map(state::Push).forEach(states::add);
-                alreadyPressed.clear();
-            }
+            // TODO
         }
         return result;
     }

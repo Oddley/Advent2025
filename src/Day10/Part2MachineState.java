@@ -30,7 +30,7 @@ public class Part2MachineState
     }
 
     public Part2MachineState(MachineConfiguration config) {
-        this(config, new Indicators<>(config.DesiredLights.Count(), 0));
+        this(config, new Indicators<>(config.DesiredJoltages.Count(), 0));
     }
 
     public boolean IsOn()
