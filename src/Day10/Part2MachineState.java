@@ -1,34 +1,48 @@
 package Day10;
 
-import Common.FIterable;
-
 public class Part2MachineState
 {
     public final MachineConfiguration Config;
     public final Indicators<Integer> Joltages;
-    public final FIterable<Button> Pressed;
+    private final boolean isOn;
+    private final boolean isFried;
 
-    private Part2MachineState(MachineConfiguration config, Indicators lights, FIterable<Button> pressed) {
+    private Part2MachineState(MachineConfiguration config, Indicators<Integer> joltages) {
         Config = config;
-        Joltages = lights;
-        Pressed = pressed;
+        Joltages = joltages;
+
+        var anyOff = false;
+        var anyFried = false;
+
+        for (int i = 0; i < Config.DesiredJoltages.Count(); i++)
+        {
+            if (Joltages.Values.get(i) < Config.DesiredJoltages.Values.get(i))
+            {
+                anyOff = true;
+            }
+            else if (Joltages.Values.get(i) > Config.DesiredJoltages.Values.get(i))
+            {
+                anyFried = true;
+            }
+        }
+        isOn = !anyOff;
+        isFried = anyFried;
     }
 
     public Part2MachineState(MachineConfiguration config) {
-        Config = config;
-        Joltages = new Indicators<>(config.DesiredLights.Count(), 0);
-        Pressed = new FIterable<>();
+        this(config, new Indicators<>(config.DesiredLights.Count(), 0));
     }
 
     public boolean IsOn()
     {
-        return Joltages.equals(Config.DesiredJoltages);
+        return isOn;
     }
+    public boolean IsFried() { return isFried; }
 
     public Part2MachineState Push(Button button)
     {
         var newLights = Increment.Push(button.EffectPositions, Joltages);
-        return new Part2MachineState(Config, newLights, Pressed.Prepend(button));
+        return new Part2MachineState(Config, newLights);
     }
 
     public static final ButtonAction<Integer> Increment = new ButtonAction<>(Part2MachineState::Increment);
