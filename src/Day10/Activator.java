@@ -3,20 +3,21 @@ package Day10;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
 
 public class Activator
 {
-    public static long PartOne(List<MachineConfiguration> machines)
+    public static long ActivateAll(List<MachineConfiguration> machines, Function<MachineConfiguration,Integer> activate)
     {
         var total = 0L;
         for (var machine : machines)
         {
-            total += Activate(machine);
+            total += activate.apply(machine);
         }
         return total;
     }
 
-    public static int Activate(MachineConfiguration machine)
+    public static Integer Part1Activate(MachineConfiguration machine)
     {
         var states = new LinkedList<MachineState>();
         states.add(new MachineState(machine));

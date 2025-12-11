@@ -8,7 +8,7 @@ void main() throws IOException {
 
     // Part 1
     // Answer = 571
-    long answer1 = Activator.PartOne(machines);
+    long answer1 = Activator.ActivateAll(machines, Activator::Part1Activate);
     Out.PrintLine("Part 1 Answer: {0,number,#}", answer1);
 
     // Part 2
