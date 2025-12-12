@@ -1,18 +1,18 @@
 import Common.InputReader;
 import Common.Out;
-import Day10.Activator;
 
 void main() throws IOException {
-    var lines = InputReader.ReadAllLines("Day10/input.txt");
-    var machines = lines.stream().map(Day10.Parser::ParseLine).toList();
+    var lines = InputReader.ReadAllLines("Day11/input.txt");
+    var devices = Day11.Parser.ReadLines(lines);
+    var deviceMap = Day11.DeviceWiring.MapDeviceToName(devices);
 
     // Part 1
-    // Answer = 571
-    long answer1 = Activator.ActivateAll(machines, Activator::Part1Activate);
+    // Answer =
+    var answer1 = Day11.DeviceWiring.GetPaths(deviceMap);
     Out.PrintLine("Part 1 Answer: {0,number,#}", answer1);
 
     // Part 2
     // Answer =
-    long answer2 = Activator.ActivateAll(machines, Activator::Part2Activate);
-    Out.PrintLine("Part 1 Answer: {0,number,#}", answer2);
+    // long answer2 = Activator.ActivateAll(machines, Activator::Part2Activate);
+    // Out.PrintLine("Part 1 Answer: {0,number,#}", answer2);
 }

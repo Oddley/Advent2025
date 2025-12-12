@@ -3,7 +3,6 @@ package Day11;
 import Common.FIterable;
 
 import java.util.List;
-import java.util.Map;
 
 
 public class Parser
