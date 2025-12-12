@@ -8,11 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RotationTest {
-    static final IPackage Shape = new Present(0, new boolean[][] {
-        { true , true , true  },
-        { true , true , false },
-        { true , true , false }
-    });
+    static final IPackage Shape = Sample.Presents.getFirst();
 
     static final IPackage Rot1 = new Present(0, new boolean[][] {
             { true , true , true },
@@ -34,9 +30,9 @@ class RotationTest {
 
     boolean testShapes(IPackage a, IPackage b)
     {
-        for (int x = 0; x < a.Width(); x++)
+        for (int x = a.Min().X; x <= a.Max().X; x++)
         {
-            for (int y = 0; y < a.Height(); y++)
+            for (int y = 0; y <= a.Max().Y; y++)
             {
                 if (a.TestShape(x,y) != b.TestShape(x,y))
                 {
@@ -50,8 +46,8 @@ class RotationTest {
     void assertShapeEquivalent(IPackage a, IPackage b)
     {
         assertAll(
-                ()->assertEquals(a.Width(), b.Width()),
-                ()->assertEquals(a.Height(), b.Height()),
+                ()->assertEquals(a.Min(), b.Min()),
+                ()->assertEquals(a.Max(), b.Max()),
                 ()->assertTrue(testShapes(a,b))
         );
     }

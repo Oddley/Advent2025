@@ -41,5 +41,10 @@ public class Coord2
         return new Coord2(minuend.X - subtrahend.X, minuend.Y - subtrahend.Y);
     }
 
+    public static Coord2 Add(Coord2 a, Coord2 b)
+    {
+        return new Coord2(a.X + b.X, a.Y + b.Y);
+    }
+
     public static Coord2 Zero = new Coord2(0,0);
 }

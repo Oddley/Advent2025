@@ -1,15 +1,17 @@
 package Day12;
 
+import Common.Coordinate.Coord2;
+
 public record Rotation(IPackage Contents, int Count) implements IPackage
 {
     @Override
-    public int Width() {
-        return Count%2==0 ? Contents.Width() : Contents.Height();
+    public Coord2 Min() {
+        return Count%2==0 ? Contents.Min() : new Coord2(Contents.Min().Y, Contents.Min().X);
     }
 
     @Override
-    public int Height() {
-        return Count%2==0 ? Contents.Height() : Contents.Width();
+    public Coord2 Max() {
+        return Count%2==0 ? Contents.Max() : new Coord2(Contents.Max().Y, Contents.Max().X);
     }
 
     @Override
@@ -26,14 +28,14 @@ public record Rotation(IPackage Contents, int Count) implements IPackage
         {
             case 1:
                 transX = y;
-                transY = Width() - (x+1);
+                transY = Max().X - x;
                 break;
             case 2:
-                transX = Width() - (x+1);
-                transY = Height() - (y+1);
+                transX = Max().X - x;
+                transY = Max().Y - y;
                 break;
             case 3:
-                transX = Height() - (y+1);
+                transX = Max().Y - y;
                 transY = x;
                 break;
             default:
