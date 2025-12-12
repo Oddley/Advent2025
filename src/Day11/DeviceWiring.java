@@ -25,7 +25,7 @@ public class DeviceWiring
 
     public static int Part1PathCount(Map<String, Device> devices)
     {
-        return BFS_GetCount(devices, You, Out, DeviceWiring::AlwaysFalse);
+        return DFS_GetCount(devices, new FIterable<>(devices.get(You)), Out, DeviceWiring::AlwaysFalse);
     }
 
     public static int Part2Validator(Map<String, Device> devices)
@@ -107,30 +107,25 @@ public class DeviceWiring
         return pathCount;
     }
 
-    public static int DFS_GetCount(Map<String, Device> devices, Device startNode, Predicate<String> IsSuccess, Predicate<String> IsFailure)
+    public static int DFS_GetCount(Map<String, Device> devices, FIterable<Device> trail, String end, Predicate<String> IsFailure)
     {
-        var stack = new LinkedList<FIterable<Device>>();
-        stack.push(new FIterable<>(startNode));
-        int pathCount = 0;
-        while (!stack.isEmpty())
+        int possibilities = 0;
+        var node = Path.Current(trail);
+        for (var output : node.Outputs())
         {
-            var path = stack.pop();
-            for (var output : Path.Current(path).Outputs())
+            if (output.equals(end)) {
+                possibilities++;
+            }
+            else if (!IsFailure.test(output))
             {
-                if (IsSuccess.test(output)) {
-                    pathCount++;
-                }
-                else if (!IsFailure.test(output))
+                var next = devices.get(output);
+                if (!Path.Contains(trail, next))
                 {
-                    var next = devices.get(output);
-                    if (!Path.Contains(path, next))
-                    {
-                        stack.add(path.Prepend(next));
-                    }
+                    possibilities += DFS_GetCount(devices, trail.Prepend(next), end, IsFailure);
                 }
             }
         }
-        return pathCount;
+        return possibilities;
     }
 
     private record FinalNode(String Name) implements Predicate<String>
