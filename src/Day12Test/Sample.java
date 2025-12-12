@@ -9,7 +9,7 @@ import java.util.List;
 public class Sample
 {
     public static final List<String> Input = List.of(
-            "    0:",
+            "0:",
         "###",
         "##.",
         "##.",
@@ -45,32 +45,32 @@ public class Sample
     );
 
     public static final List<Present> Presents = List.of(
-            new Present(new boolean[][] {
+            new Present(0, new boolean[][] {
                     { true , true , true  },
                     { true , true , false },
                     { true , true , false }
             }),
-            new Present(new boolean[][] {
+            new Present(1, new boolean[][] {
                     { true , true , true  },
                     { true , true , false },
                     { false, true , true  }
             }),
-            new Present(new boolean[][] {
+            new Present(2, new boolean[][] {
                     { false, true , true  },
                     { true , true , true  },
                     { true , true , false }
             }),
-            new Present(new boolean[][] {
+            new Present(3, new boolean[][] {
                     { true , true , false },
                     { true , true , true  },
                     { true , true , false }
             }),
-            new Present(new boolean[][] {
+            new Present(4, new boolean[][] {
                     { true , true , true  },
                     { true , false, false },
                     { true , true , true  },
             }),
-            new Present(new boolean[][] {
+            new Present(5, new boolean[][] {
                     { true , true , true  },
                     { false, true , false },
                     { true , true , true  },

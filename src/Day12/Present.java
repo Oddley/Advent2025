@@ -3,23 +3,36 @@ package Day12;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Present
+public class Present implements IPackage
 {
     private final boolean[][] grid;
-    public final int Width;
-    public final int Height;
-    public final int UnusedArea;
+    final int ID;
+    final int _Width;
+    final int _Height;
+    final int _UnusedArea;
 
-    public Present(boolean[][] grid)
+    public int Width() { return _Width; }
+    public int Height() { return _Height; }
+    public int UnusedArea() { return _UnusedArea; }
+
+    public boolean TestShape(int x, int y)
     {
-        this.Height = grid.length;
-        this.Width = grid[0].length;
+        return 0 <= x && x <= Width() &&
+                0 <= y && y <= Height() &&
+                grid[y][x];
+    }
+
+    public Present(int id, boolean[][] grid)
+    {
+        this.ID = id;
+        this._Height = grid.length;
+        this._Width = grid[0].length;
         this.grid = grid;
         var unused = 0;
-        for (int y = 0; y < Height; y++)
+        for (int y = 0; y < _Height; y++)
         {
             var row = this.grid[y];
-            for (int x = 0; x < Width; x++)
+            for (int x = 0; x < _Width; x++)
             {
                 if (row[x])
                 {
@@ -27,7 +40,7 @@ public class Present
                 }
             }
         }
-        UnusedArea = unused;
+        _UnusedArea = unused;
     }
 
     @Override

@@ -43,7 +43,7 @@ public class Parser
 
     private Present GetPresent()
     {
-        nextLine(); // Skip the array identifier
+        var id = Integer.parseInt(nextLine().substring(0,1));
         var grid = new boolean[3][3];
         for (int y = 0; y < 3; y++)
         {
@@ -55,7 +55,7 @@ public class Parser
             }
         }
         nextLine(); // Skip the newline
-        return new Present(grid);
+        return new Present(id, grid);
     }
 
     private Tree GetTree()
