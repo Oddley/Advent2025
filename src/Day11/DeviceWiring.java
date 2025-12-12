@@ -25,7 +25,10 @@ public class DeviceWiring
 
     public static int Part1PathCount(Map<String, Device> devices)
     {
-        return DFS_GetCount(devices, new FIterable<>(devices.get(You)), Out, DeviceWiring::AlwaysFalse);
+        var start = devices.get(You);
+        var census = new Census(new FIterable<>());
+        census = CensusVisit(devices, start, census, Out);
+        return census.GetCount(start.Name());
     }
 
     public static int Part2Validator(Map<String, Device> devices)
@@ -81,51 +84,23 @@ public class DeviceWiring
         return true;
     }
 
-    public static int BFS_GetCount(Map<String, Device> devices, String start, String end, Predicate<String> IsFailure)
-    {
-        var stack = new LinkedList<FIterable<Device>>();
-        stack.push(new FIterable<>(devices.get(start)));
-        int pathCount = 0;
-        while (!stack.isEmpty())
-        {
-            var path = stack.pop();
-            for (var output : Path.Current(path).Outputs())
-            {
-                if (output.equals(end)) {
-                    pathCount++;
-                }
-                else if (!IsFailure.test(output))
-                {
-                    var next = devices.get(output);
-                    if (!Path.Contains(path, next))
-                    {
-                        stack.add(path.Prepend(next));
-                    }
-                }
-            }
-        }
-        return pathCount;
-    }
-
-    public static int DFS_GetCount(Map<String, Device> devices, FIterable<Device> trail, String end, Predicate<String> IsFailure)
+    public static Census CensusVisit(Map<String, Device> devices, Device node, Census census, String end)
     {
         int possibilities = 0;
-        var node = Path.Current(trail);
-        for (var output : node.Outputs())
+        for (var name : node.Outputs())
         {
-            if (output.equals(end)) {
+            if (name.equals(end)) {
                 possibilities++;
             }
-            else if (!IsFailure.test(output))
+            else
             {
-                var next = devices.get(output);
-                if (!Path.Contains(trail, next))
-                {
-                    possibilities += DFS_GetCount(devices, trail.Prepend(next), end, IsFailure);
-                }
+                var next = devices.get(name);
+                census = CensusVisit(devices, next, census, end);
+                possibilities += census.GetCount(name);
             }
         }
-        return possibilities;
+        census = census.SetCount(node.Name(), possibilities);
+        return census;
     }
 
     private record FinalNode(String Name) implements Predicate<String>
