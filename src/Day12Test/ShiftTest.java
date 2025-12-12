@@ -47,25 +47,6 @@ class ShiftTest {
         return Parser.ParseLines(lines).Presents().getFirst();
     }
 
-    static boolean testShape(IPackage expected, IPackage subject)
-    {
-        var minX = Math.min(expected.Min().X, subject.Min().X);
-        var maxX = Math.max(expected.Max().X, subject.Max().X);
-        var minY = Math.min(expected.Min().Y, subject.Min().Y);
-        var maxY = Math.max(expected.Max().Y, subject.Max().Y);
-        for (int x = minX; x <= maxX; x++)
-        {
-            for (int y = minY; y <= maxY; y++)
-            {
-                if (expected.TestShape(x,y) != subject.TestShape(x,y))
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     @Test
     void testShifts()
     {
@@ -90,7 +71,7 @@ class ShiftTest {
         assertAll(
                 ()->assertEquals(expected.Min(), subject.Min()),
                 ()->assertEquals(expected.Max(), subject.Max()),
-                ()->assertTrue(testShape(expected, subject))
+                ()->assertTrue(ShapeTest.TestShape(expected, subject))
         );
     }
 }

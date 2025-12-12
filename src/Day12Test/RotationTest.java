@@ -28,27 +28,12 @@ class RotationTest {
             { true , true , true  }
     });
 
-    boolean testShapes(IPackage a, IPackage b)
-    {
-        for (int x = a.Min().X; x <= a.Max().X; x++)
-        {
-            for (int y = 0; y <= a.Max().Y; y++)
-            {
-                if (a.TestShape(x,y) != b.TestShape(x,y))
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     void assertShapeEquivalent(IPackage a, IPackage b)
     {
         assertAll(
                 ()->assertEquals(a.Min(), b.Min()),
                 ()->assertEquals(a.Max(), b.Max()),
-                ()->assertTrue(testShapes(a,b))
+                ()->assertTrue(ShapeTest.TestShape(a,b))
         );
     }
 
