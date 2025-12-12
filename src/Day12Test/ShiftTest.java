@@ -27,6 +27,11 @@ class ShiftTest {
         }
 
         @Override
+        public Coord2 Size() {
+            return Coord2.Subtract(Max(),Min());
+        }
+
+        @Override
         public int UnusedArea() {
             return 0;
         }

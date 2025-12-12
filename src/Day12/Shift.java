@@ -15,6 +15,11 @@ public record Shift(IPackage Contents, Coord2 Shift) implements IPackage
     }
 
     @Override
+    public Coord2 Size() {
+        return Coord2.Subtract(Max(),Min());
+    }
+
+    @Override
     public int UnusedArea() {
         return Contents.UnusedArea();
     }

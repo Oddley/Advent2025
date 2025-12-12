@@ -15,6 +15,7 @@ public class Present implements IPackage
 
     public Coord2 Min() { return Coord2.Zero; }
     public Coord2 Max() { return max; }
+    public Coord2 Size() { return size; }
     public int UnusedArea() { return _UnusedArea; }
 
     public boolean TestShape(int x, int y)
