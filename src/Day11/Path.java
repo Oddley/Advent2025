@@ -18,6 +18,18 @@ public class Path
         return false;
     }
 
+    public static boolean Contains(FIterable<String> path, String node)
+    {
+        for (var p : path)
+        {
+            if (p.equals(node))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static Device Current(FIterable<Device> path)
     {
         return path.iterator().next();

@@ -19,7 +19,7 @@ class DeviceWiringTest {
     @Test
     void part2()
     {
-        var subject = DeviceWiring.Part2PathCount(DeviceWiring.MapDeviceToName(Sample2.Devices));
+        var subject = DeviceWiring.Part2Validator(DeviceWiring.MapDeviceToName(Sample2.Devices));
         assertEquals(2, subject);
     }
 }
