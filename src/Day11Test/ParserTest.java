@@ -10,13 +10,13 @@ class ParserTest {
     @Test
     void readLine()
     {
-        var subject = Parser.ReadLine(Sample.Input.getFirst());
-        assertEquals(Sample.Devices.getFirst(), subject);
+        var subject = Parser.ReadLine(Sample1.Input.getFirst());
+        assertEquals(Sample1.Devices.getFirst(), subject);
     }
 
     @Test
     void readLines() {
-        var subject = Parser.ReadLines(Sample.Input);
-        assertEquals(Sample.Devices, subject);
+        var subject = Parser.ReadLines(Sample1.Input);
+        assertEquals(Sample1.Devices, subject);
     }
 }

@@ -5,7 +5,7 @@ import Day11.Device;
 
 import java.util.List;
 
-public class Sample
+public class Sample1
 {
     public static List<String> Input = List.of(
         "aaa: you hhh",

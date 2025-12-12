@@ -7,8 +7,8 @@ void main() throws IOException {
     var deviceMap = Day11.DeviceWiring.MapDeviceToName(devices);
 
     // Part 1
-    // Answer =
-    var answer1 = Day11.DeviceWiring.GetPaths(deviceMap);
+    // Answer = 758
+    var answer1 = Day11.DeviceWiring.Part1PathCount(deviceMap);
     Out.PrintLine("Part 1 Answer: {0,number,#}", answer1);
 
     // Part 2
