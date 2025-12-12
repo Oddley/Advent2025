@@ -13,6 +13,6 @@ void main() throws IOException {
 
     // Part 2
     // Answer =
-    // var answer2 = Day11.DeviceWiring.Part2Validator(deviceMap);
-    // Out.PrintLine("Part 1 Answer: {0,number,#}", answer2);
+    var answer2 = Day11.DeviceWiring.Part2Validator(deviceMap);
+    Out.PrintLine("Part 1 Answer: {0,number,#}", answer2);
 }

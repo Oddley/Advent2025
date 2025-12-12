@@ -27,104 +27,60 @@ public class DeviceWiring
     {
         var start = devices.get(You);
         var census = new Census(new FIterable<>());
-        census = CensusVisit(devices, start, census, Out);
+        census = CensusVisit(devices, start, new FIterable<>(), census, Out, DeviceWiring::AlwaysTrue);
         return census.GetCount(start.Name());
     }
 
     public static int Part2Validator(Map<String, Device> devices)
     {
-        var path1 = List.of(Svr,Fft,Dac,Out);
-        var path2 = List.of(Svr,Dac,Fft,Out);
-        Common.Out.PrintLine("{0} valid? {1}", String.join("->",path1), IsPossible(path1,devices));
-        Common.Out.PrintLine("{0} valid? {1}", String.join("->",path2), IsPossible(path2,devices));
-        return 0;
+        var path = List.of(Fft,Dac);
+        var start = devices.get(Svr);
+        var census = new Census(new FIterable<>());
+        census = CensusVisit(devices, start, new FIterable<>(), census, Out, new ContainsAll(path));
+        return census.GetCount(start.Name());
     }
 
-    private static boolean AlwaysTrue(String path)
+    private static boolean AlwaysTrue(FIterable<String> path)
     {
         return true;
     }
 
-    private static boolean AlwaysFalse(String path)
-    {
-        return false;
-    }
-
-    public static boolean IsPossible(List<String> path, Map<String,Device> devices)
-    {
-        for (int i = 0; i < path.size() - 1; i++)
-        {
-            var current = devices.get(path.get(i));
-            var next = path.get(i+1);
-            var nextFound = false;
-            var stack = new LinkedList<Device>();
-            var visited = new HashSet<String>();
-            stack.push(current);
-            while (!stack.isEmpty()) {
-                var node = stack.pop();
-                visited.add(node.Name());
-                for (var out : node.Outputs())
-                {
-                    if (out.equals(next))
-                    {
-                        nextFound = true;
-                    }
-                    else if (!visited.contains(out) &&
-                            !path.contains(out))
-                    {
-                        stack.push(devices.get(out));
-                    }
-                }
-            }
-            if (!nextFound)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static Census CensusVisit(Map<String, Device> devices, Device node, Census census, String end)
+    public static Census CensusVisit(Map<String, Device> devices, Device node, FIterable<String> path, Census census, String end, Predicate<FIterable<String>> IsValidPath)
     {
         int possibilities = 0;
+        path = path.Prepend(node.Name());
         for (var name : node.Outputs())
         {
             if (name.equals(end)) {
-                possibilities++;
+                if (IsValidPath.test(path)) {
+                    possibilities++;
+                }
             }
             else
             {
                 var next = devices.get(name);
-                census = CensusVisit(devices, next, census, end);
+                census = CensusVisit(devices, next, path, census, end, IsValidPath);
                 possibilities += census.GetCount(name);
             }
         }
-        census = census.SetCount(node.Name(), possibilities);
+        if (possibilities != 0) {
+            census = census.SetCount(node.Name(), possibilities);
+        }
         return census;
     }
 
-    private record FinalNode(String Name) implements Predicate<String>
+    private record ContainsAll(List<String> required) implements Predicate<FIterable<String>>
     {
         @Override
-            public boolean test(String s) {
-                return Name.equals(s);
+        public boolean test(FIterable<String> path)
+        {
+            var remaining = new HashSet<>(required);
+            var pathIter = path.iterator();
+            while (!remaining.isEmpty() && pathIter.hasNext())
+            {
+                remaining.remove(pathIter.next());
             }
-        }
-
-    private static class BadNodes implements Predicate<String>
-    {
-        private final Set<String> Names;
-
-        public BadNodes(String... names)
-        {
-            this.Names = new HashSet<>();
-            this.Names.addAll(Arrays.asList(names));
-        }
-
-        @Override
-        public boolean test(String s)
-        {
-            return Names.contains(s);
+            return remaining.isEmpty();
         }
     }
 
