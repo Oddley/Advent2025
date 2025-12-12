@@ -25,8 +25,9 @@ public class DeviceWiring
 
     public static int Part1PathCount(Map<String, Device> devices)
     {
-        return GetPathCount(devices, devices.get(You), new FinalNode(Out), DeviceWiring::AlwaysFalse);
+        return BFS_GetCount(devices, You, Out, DeviceWiring::AlwaysFalse);
     }
+
     public static int Part2Validator(Map<String, Device> devices)
     {
         var path1 = List.of(Svr,Fft,Dac,Out);
@@ -80,14 +81,40 @@ public class DeviceWiring
         return true;
     }
 
-    public static int GetPathCount(Map<String, Device> devices, Device startNode, Predicate<String> IsSuccess, Predicate<String> IsFailure)
+    public static int BFS_GetCount(Map<String, Device> devices, String start, String end, Predicate<String> IsFailure)
     {
-        var paths = new LinkedList<FIterable<Device>>();
-        paths.push(new FIterable<>(startNode));
+        var stack = new LinkedList<FIterable<Device>>();
+        stack.push(new FIterable<>(devices.get(start)));
         int pathCount = 0;
-        while (!paths.isEmpty())
+        while (!stack.isEmpty())
         {
-            var path = paths.pop();
+            var path = stack.pop();
+            for (var output : Path.Current(path).Outputs())
+            {
+                if (output.equals(end)) {
+                    pathCount++;
+                }
+                else if (!IsFailure.test(output))
+                {
+                    var next = devices.get(output);
+                    if (!Path.Contains(path, next))
+                    {
+                        stack.add(path.Prepend(next));
+                    }
+                }
+            }
+        }
+        return pathCount;
+    }
+
+    public static int DFS_GetCount(Map<String, Device> devices, Device startNode, Predicate<String> IsSuccess, Predicate<String> IsFailure)
+    {
+        var stack = new LinkedList<FIterable<Device>>();
+        stack.push(new FIterable<>(startNode));
+        int pathCount = 0;
+        while (!stack.isEmpty())
+        {
+            var path = stack.pop();
             for (var output : Path.Current(path).Outputs())
             {
                 if (IsSuccess.test(output)) {
@@ -98,7 +125,7 @@ public class DeviceWiring
                     var next = devices.get(output);
                     if (!Path.Contains(path, next))
                     {
-                        paths.add(path.Prepend(next));
+                        stack.add(path.Prepend(next));
                     }
                 }
             }
