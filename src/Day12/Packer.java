@@ -1,34 +1,20 @@
 package Day12;
 
+import Common.Out;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Packer
 {
     public static int CountPossible(PresentConfig xMas)
     {
-        int possible = 0;
-        var remaining = new ArrayList<Tree>();
-        for (var tree : xMas.Trees())
-        {
-            if (CanSquarePack(tree, 3)) {
-                possible++;
-            }
-            else
-            {
-                remaining.add(tree);
-            }
-        }
-        Common.Out.PrintLine("Can solve with SquarePack: {0} tree(s)", possible);
-        Common.Out.PrintLine("Remaining: {0} tree(s)", remaining.size());
-
-        int rejected = 0;
-        var checking = remaining;
-        remaining = new ArrayList<Tree>();
+        Common.Out.PrintLine("Total Trees: {0}", xMas.Trees().size());
 
         var perfectAreas = xMas.Presents().stream().map(Packer::GetPerfectArea).toList();
-        for (var tree : checking)
+        var remaining = new ArrayList<Tree>();
+        var rejected = 0;
+        for (var tree : xMas.Trees())
         {
             if (CanPerfectPack(tree, perfectAreas))
             {
@@ -41,6 +27,23 @@ public class Packer
         }
         Common.Out.PrintLine("Rejected by PerfectPack: {0} tree(s)", rejected);
         Common.Out.PrintLine("Remaining: {0} tree(s)", remaining.size());
+
+        int possible = 0;
+        var checking = remaining;
+        remaining = new ArrayList<Tree>();
+        for (var tree : checking)
+        {
+            if (CanSquarePack(tree, 3)) {
+                possible++;
+            }
+            else
+            {
+                remaining.add(tree);
+            }
+        }
+        Common.Out.PrintLine("Can solve with SquarePack: {0} tree(s)", possible);
+        Common.Out.PrintLine("Remaining: {0} tree(s)", remaining.size());
+
         return -1;
     }
 
@@ -59,7 +62,7 @@ public class Packer
 
     static Integer GetPerfectArea(Present present)
     {
-        return (present.Size().X * present.Size().Y) - present.UnusedArea();
+        return present.MinRequiredArea;
     }
 
     static boolean CanSquarePack(Tree tree, int presentSquareSize)
