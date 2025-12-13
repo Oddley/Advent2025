@@ -1,8 +1,6 @@
-package Day12Test;
+package Day12;
 
-import Day12.IPackage;
-
-public class ShapeTest
+public class ShapeUtil
 {
     public static boolean TestShape(IPackage a, IPackage b)
     {
@@ -21,5 +19,22 @@ public class ShapeTest
             }
         }
         return true;
+    }
+
+    public static String ToString(IPackage shape)
+    {
+        var sb = new StringBuilder();
+        for (int x = shape.Min().X; x <= shape.Max().X; x++)
+        {
+            if (x > shape.Min().X)
+            {
+                sb.append("\n");
+            }
+            for (int y = shape.Min().Y; y <= shape.Max().Y; y++)
+            {
+                sb.append(shape.TestShape(x,y) ? '#' : '.');
+            }
+        }
+        return sb.toString();
     }
 }

@@ -3,6 +3,7 @@ package Day12Test;
 import Day12.Flip;
 import Day12.IPackage;
 import Day12.Present;
+import Day12.ShapeUtil;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,7 +43,7 @@ class FlipTest
         assertAll(
                 ()->assertEquals(expected.Min(), subject.Min()),
                 ()->assertEquals(expected.Max(), subject.Max()),
-                ()->assertTrue(ShapeTest.TestShape(expected, subject))
+                ()->assertTrue(ShapeUtil.TestShape(expected, subject))
         );
     }
 
@@ -55,7 +56,7 @@ class FlipTest
         assertAll(
                 ()->assertEquals(expected.Min(), subject.Min()),
                 ()->assertEquals(expected.Max(), subject.Max()),
-                ()->assertTrue(ShapeTest.TestShape(expected, subject))
+                ()->assertTrue(ShapeUtil.TestShape(expected, subject))
         );
     }
 
@@ -68,7 +69,7 @@ class FlipTest
         assertAll(
                 ()->assertEquals(expected.Min(), subject.Min()),
                 ()->assertEquals(expected.Max(), subject.Max()),
-                ()->assertTrue(ShapeTest.TestShape(expected, subject))
+                ()->assertTrue(ShapeUtil.TestShape(expected, subject))
         );
     }
 }

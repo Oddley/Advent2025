@@ -3,6 +3,7 @@ package Day12Test;
 import Day12.IPackage;
 import Day12.Present;
 import Day12.Rotation;
+import Day12.ShapeUtil;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,7 +34,7 @@ class RotationTest {
         assertAll(
                 ()->assertEquals(a.Min(), b.Min()),
                 ()->assertEquals(a.Max(), b.Max()),
-                ()->assertTrue(ShapeTest.TestShape(a,b))
+                ()->assertTrue(ShapeUtil.TestShape(a,b))
         );
     }
 

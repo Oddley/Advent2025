@@ -1,10 +1,7 @@
 package Day12Test;
 
 import Common.Coordinate.Coord2;
-import Day12.IPackage;
-import Day12.Parser;
-import Day12.Present;
-import Day12.Shift;
+import Day12.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -71,7 +68,7 @@ class ShiftTest {
         assertAll(
                 ()->assertEquals(expected.Min(), subject.Min()),
                 ()->assertEquals(expected.Max(), subject.Max()),
-                ()->assertTrue(ShapeTest.TestShape(expected, subject))
+                ()->assertTrue(ShapeUtil.TestShape(expected, subject))
         );
     }
 }
