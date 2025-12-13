@@ -11,34 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShiftTest {
     static IPackage Zero = new PixelPackage(new Coord2(0,0));
 
-    record PixelPackage(Coord2 Contents) implements IPackage
-    {
-        @Override
-        public Coord2 Min() {
-            return Contents();
-        }
-
-        @Override
-        public Coord2 Max() {
-            return Contents();
-        }
-
-        @Override
-        public Coord2 Size() {
-            return Coord2.Subtract(Max(),Min());
-        }
-
-        @Override
-        public int UnusedArea() {
-            return 0;
-        }
-
-        @Override
-        public boolean TestShape(int x, int y) {
-            return Contents().equals(new Coord2(x,y));
-        }
-    }
-
     static Present Parse(List<String> lines)
     {
         return Parser.ParseLines(lines).Presents().getFirst();
