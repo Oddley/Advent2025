@@ -38,7 +38,7 @@ public class Present implements IPackage
             var row = this.grid[y];
             for (int x = 0; x < size.X; x++)
             {
-                if (row[x])
+                if (!row[x])
                 {
                     unused++;
                 }
